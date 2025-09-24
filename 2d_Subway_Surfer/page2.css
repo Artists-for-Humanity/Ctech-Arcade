@@ -1,0 +1,22 @@
+body{
+
+}
+
+#game{
+    width: 450px;
+    height: 900px;
+    border: 1px solid black;
+}
+
+#score_container{
+    height: 10vh;
+    width: 100vh;
+}
+
+#player{
+    height: 150px;
+    width: 150px;
+    background-color: green;
+    position: relative;
+    top: 750px;
+}
