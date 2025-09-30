@@ -1,16 +1,22 @@
 body{
-
+    height: 100vh;
+    width: 100vh;
+    margin: 0;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
 }
 
 #game{
-    width: 450px;
+    width: 600px;
     height: 900px;
+    margin: auto;
     border: 1px solid black;
 }
 
 #score_container{
-    height: 10vh;
-    width: 100vh;
+  
 }
 
 #player{
@@ -18,5 +24,20 @@ body{
     width: 150px;
     background-color: green;
     position: relative;
-    top: 750px;
+    top: 650px;
+    left: 225px;
+}
+
+#barrier_1{
+    height: 100px;
+    width: 150px;
+    margin: 0 25px;
+    background-color: red;
+    position: relative;
+    animation: slide 1s infinite;
+
+}
+@keyframes slide{
+    0%{top:900px};
+    1000%{top:900px};
 }
