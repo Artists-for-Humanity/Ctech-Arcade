@@ -13,6 +13,7 @@ body{
     height: 900px;
     margin: auto;
     border: 1px solid black;
+    box-sizing: border-box;
 }
 
 #score_container{
@@ -33,11 +34,22 @@ body{
     width: 150px;
     margin: 0 25px;
     background-color: red;
+    top: 850px;
     position: relative;
-    animation: slide 1s infinite;
+    animation: slide 2s infinite linear;
+    overflow: hidden;
 
 }
 @keyframes slide{
-    0%{top:900px};
-    1000%{top:900px};
+    0%{top:-200px};
+    100%{top:850px};
+}
+
+#white{
+    width: 600px;
+    height: 100px;
+    position: absolute;
+    top: 940px;
+    background-color: white;
+    z-index: 10000000;
 }
