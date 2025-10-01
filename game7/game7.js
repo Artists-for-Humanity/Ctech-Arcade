@@ -17,7 +17,7 @@ const player = {
   y: canvas.height / 2,
   size: 40,
   speed: 4,
-  turnSpeed: 1,   // radians per second
+  turnSpeed: 1,     // radians per second
   dx: 0,
   dy: 0,
   angle: 0,          // current facing angle (radians)
