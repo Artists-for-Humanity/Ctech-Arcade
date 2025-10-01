@@ -1,6 +1,5 @@
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
-document.getElementById("resetBtn").addEventListener("click", resetGame);
 let mouseX = canvas.width / 2;
 let mouseY = canvas.height / 2;
 
@@ -29,6 +28,12 @@ const player = {
 const bullets = [];
 const enemies = [];
 let score = 0;
+
+
+//highscore
+let highScore = Number(localStorage.getItem("game7HighScore")) || 0;
+const highScoreEl = document.getElementById("highScore");
+if (highScoreEl) highScoreEl.textContent = "High Score: " + highScore;
 
 // controls
 const keys = {};
@@ -121,6 +126,8 @@ function update(dt) {
     }
   }
 
+
+
   // enemies
   for (let i = enemies.length - 1; i >= 0; i--) {
     const en = enemies[i];
@@ -130,7 +137,11 @@ function update(dt) {
 
     // hit player?
     if (Math.hypot(player.x - en.x, player.y - en.y) < (player.size * 0.5 + en.size * 0.4)) {
-      // alert("Game Over! Final Score: " + score);
+      if (score > highScore) {
+        highScore = score;
+        localStorage.setItem("game7HighScore", highScore);
+        if (highScoreEl) highScoreEl.textContent = "High Score: " + highScore;
+      }
       document.location.reload();
       return;
     }
@@ -193,17 +204,6 @@ function loop(now = performance.now()) {
   requestAnimationFrame(loop);
 }
 
-function resetGame() {
-  player.x = canvas.width / 2;
-  player.y = canvas.height / 2;
-  player.angle = 0;
-  player.targetAngle = 0;
-  bullets.length = 0;
-  enemies.length = 0;
-  score = 0;
-  const scoreEl = document.getElementById("score");
-  if (scoreEl) scoreEl.textContent = "Score: " + score;
-}
 
 setInterval(spawnEnemy, 1600);
 loop();
