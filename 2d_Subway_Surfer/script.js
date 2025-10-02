@@ -18,32 +18,90 @@ function moveRight(){
     }
 }
 
+function slide(){
+    let left = 
+    parseInt(window.getComputedStyle(player)
+    .getPropertyValue("left"));
+    left += 1;
+    console.log("y")
+
+
+}
+
 document.addEventListener("keydown", event => {
     if(event.key==="ArrowLeft"){moveLeft();}
     if(event.key==="ArrowRight"){moveRight();}
+    if(event.ley==="ArrowDown"){slide();}
 });
 
-var block = document.getElementById("barrier_1");
+var barrier_1 = document.getElementById("barrier_1");
+var barrier_2 = document.getElementById("barrier_2");
+var barrier_3 = document.getElementById("barrier_3");
 var counter = 0;
 barrier_1.addEventListener('animationiteration', () => {
     var random = Math.floor(Math.random() * 3);
-    left = random * 200;
-    block.style.left = left + "px";
+    left = 25 + random * 200;
+    barrier_1.style.left = left + "px";
     counter++;
 });
+barrier_2.addEventListener('animationiteration', () => {
+    var random = Math.floor(Math.random() * 3);
+    left = 25 + random * 200;
+    barrier_2.style.left = left + "px";
+    counter++;
+});
+barrier_3.addEventListener('animationiteration', () => {
+    var random = Math.floor(Math.random() * 3);
+    left = 25 + random * 200;
+    barrier_3.style.left = left + "px";
+    counter++
+})
 
 setInterval(function(){
     var playerLeft = 
     parseInt(window.getComputedStyle(player)
     .getPropertyValue("left"));
-    var blockLeft = 
-    parseInt(window.getComputedStyle(block)
+    var barrier_1Left = 
+    parseInt(window.getComputedStyle(barrier_1)
     .getPropertyValue("left"));
-    var blockTop = 
-    parseInt(window.getComputedStyle(block)
+    var barrier_1Top = 
+    parseInt(window.getComputedStyle(barrier_1)
     .getPropertyValue("top"));
-    if(playerLeft == blockLeft && blockTop<900&& blockTop>600){
-        alert("Game Over. Score: " + counter)
-        block.style.animation = "none";
-    }
-}, 1);
+    var barrier_2Left = 
+    parseInt(window.getComputedStyle(barrier_2)
+    .getPropertyValue("left"));
+    var barrier_2Top = 
+    parseInt(window.getComputedStyle(barrier_2)
+    .getPropertyValue("top"));
+    var barrier_3Left = 
+    parseInt(window.getComputedStyle(barrier_3)
+    .getPropertyValue("left"));
+    var barrier_3Top = 
+    parseInt(window.getComputedStyle(barrier_3)
+    .getPropertyValue("top"));
+    if(playerLeft == barrier_1Left && 
+        barrier_1Top<900&& 
+        barrier_1Top>650){
+        alert("Game Over. Score: " + counter);
+        barrier_1.style.animation = "none";
+        barrier_2.style.animation = "none";
+        barrier_3.style.animation = "none";
+        }
+    if(playerLeft == barrier_2Left &&
+        barrier_2Top<900&&
+        barrier_2Top>450){
+        alert("Game Over. Score:" + counter);
+        barrier_2.style.animation = "none";
+        barrier_1.style.animation = "none";
+        barrier_3.style.animation = "none";
+        }
+    if(playerLeft == barrier_3Left &&
+        barrier_3Top<900&&
+        barrier_3Top>350){
+        alert("Game Over. Score:" + counter);
+        barrier_3.style.animation = "none";
+        barrier_2.style.animation = "none"
+        barrier_1.style.animation = "none";
+        }
+    
+} ,1);

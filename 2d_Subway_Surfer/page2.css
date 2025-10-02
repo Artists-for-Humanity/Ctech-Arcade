@@ -14,6 +14,7 @@ body{
     margin: auto;
     border: 1px solid black;
     box-sizing: border-box;
+    position: relative;
 }
 
 #score_container{
@@ -24,32 +25,48 @@ body{
     height: 150px;
     width: 150px;
     background-color: green;
-    position: relative;
-    top: 650px;
+    position: absolute;
+    top: 750px;
     left: 225px;
 }
 
 #barrier_1{
     height: 100px;
     width: 150px;
-    margin: 0 25px;
+    margin: 0;
     background-color: red;
-    top: 850px;
-    position: relative;
-    animation: slide 2s infinite linear;
-    overflow: hidden;
-
-}
-@keyframes slide{
-    0%{top:-200px};
-    100%{top:850px};
-}
-
-#white{
-    width: 600px;
-    height: 100px;
+    top: 1000px;
+    left: 225px;
     position: absolute;
-    top: 940px;
-    background-color: white;
-    z-index: 10000000;
+    animation: movement 4s infinite linear;
+    overflow: hidden;
+}
+
+#barrier_2{
+    height: 300px;
+    width: 150px;
+    margin: 0;
+    background-color: red;
+    top: 900px;
+    left: 25px;
+    position: absolute;
+    animation: movement 3s infinite linear;
+    overflow: hidden;
+}
+
+#barrier_3{
+    height: 400px;
+    width: 150px;
+    margin: 0;
+    background-color: red;
+    top: 900px;
+    left: 25px;
+    position: absolute;
+    animation: movement 3s infinite linear;
+    overflow: hidden;
+}
+
+@keyframes movement{
+    0%{top:-400px};
+    100%{top:900px};
 }
