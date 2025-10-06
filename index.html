@@ -5,14 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ctech Arcade</title>
     <link rel="stylesheet" href="style.css">
+    <script src="loading.js"></script>
 </head>
 <body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-title">Loading....</div>
+        <div class="progress-bar-container">
+            <div class="progress-bar-fill" id="progressBarFill"></div>
+        </div>
+    </div>
 
-    <h1>Welcome to Ctech Arcade!</h1>
-    <p>Choose a mini game below </p>
+    <div class="main-container">
+
+    <div>
+        <h1>Welcome to C-Tech-Arcade  l</h1>
+        <p>Choose a mini game below</p>
+    </div>
 
 
     <div class="games">
+        <a class="game team " href="game1/game1.html">Meet the Team</a>
         <a class="game" href="game1/game1.html">Game 1</a>
         <a class="game" href="game2/game2.html">Game 2</a>
         <a class="game" href="game3/game3.html">Game 3</a>
@@ -21,7 +34,12 @@
         <a class="game" href="game6/game6.html">Game 6</a>
         <a class="game game7" href="game7/game7.html">TOP DOWN<br> SHOOTER</a>
     </div>
+    </div>
 
     
 </body>
+<script>
+    // Initialize loading system for homepage
+    initializeLoading(false);
+</script>
 </html>
