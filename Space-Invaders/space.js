@@ -24,6 +24,17 @@ let ship = {
 let shipImg; 
 let shipVelocityX = tileSize; //ship moving speed
 
+let alienArray[];
+let alienWidth = tileSize*2;
+let alienHeight = tilesize;
+let alienX = tileSize;
+let alienY = tileSize;
+let alienImg;
+
+let alienRows = 2;
+let alienColumns = 3;
+let alienCount = 0; //number of aliens to defeat
+
 window.onload = function() {
     board = document.getElementById("board");
     board.width = boardWidth;
