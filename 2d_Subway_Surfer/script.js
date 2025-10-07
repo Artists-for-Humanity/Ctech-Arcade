@@ -1,3 +1,28 @@
+function slide(){
+    let width = 
+    parseInt(window.getComputedStyle(player)
+    .getPropertyValue("width"));
+    let left = 
+    parseInt(window.getComputedStyle(player)
+    .getPropertyValue("left"));
+    if(width=150){
+        width -= 20;
+        player.style.width = width + "px";
+    }
+    if(left % 25 === 0){
+        left += 10;
+        player.style.left = left + "px";
+    }
+    setTimeout(function() {
+    width += 20;
+    left -= 10;
+    player.style.width = width + "px";
+    player.style.left = left + "px";
+    }, 1000);
+
+}
+
+
 function moveLeft(){
     let left = 
     parseInt(window.getComputedStyle(player)
@@ -18,20 +43,10 @@ function moveRight(){
     }
 }
 
-function slide(){
-    let left = 
-    parseInt(window.getComputedStyle(player)
-    .getPropertyValue("left"));
-    left += 1;
-    console.log("y")
-
-
-}
-
 document.addEventListener("keydown", event => {
     if(event.key==="ArrowLeft"){moveLeft();}
     if(event.key==="ArrowRight"){moveRight();}
-    if(event.ley==="ArrowDown"){slide();}
+    if(event.key==="ArrowDown"){slide();}
 });
 
 var barrier_1 = document.getElementById("barrier_1");
