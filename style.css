@@ -4,8 +4,11 @@
 :root {
      --primary-bg-color: #111111; 
     --secondary-bg-color: #68686830;
+    --tertiary-bg-color: #68686830;
     --primary-text-color: #1FC742;
      --secondary-text-color: #025B18;
+    --tertiary-text-color: #FFFFFF;
+    --alert-color: #FF004D;
     
 }
 
@@ -101,6 +104,7 @@ p {
     font-size: 16px;
     font-weight: bold; 
     margin: 0px;
+    text-align: left;
 }
 
 .games{
@@ -245,4 +249,96 @@ p {
     background-color: var(--primary-text-color);
     transition: width 0.1s ease;
     box-shadow: 0 0 10px var(--primary-text-color);
+}
+
+.container{
+    box-sizing: border-box;
+    width:100%;
+    height:100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.game-container{
+    display: flex;
+    /* margin-top: 30px; */
+    box-sizing: border-box;
+    justify-content: space-between;
+    width:100%;
+    height:100%;
+}
+
+.game-title{
+    font-size: 30px;
+    font-weight: bold;
+    margin: 0px 0px 10px 0px;
+    text-align: right;
+    letter-spacing: 30px;
+    text-transform: uppercase;
+    box-sizing: border-box;
+    
+}
+
+.game-info{
+    width:25%;
+    height:100%;
+    background-color: var(--secondary-bg-color);
+    margin:0px 20px 0px 0px;
+    box-sizing: border-box;
+    text-align: left;
+    padding: 0px 30px 0px 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.info-header{
+    font-size: 20px;
+    color:var(--primary-text-color);
+    margin-top:20px;
+    font-weight: bold;
+}
+
+.controls{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-row-gap: 10px;
+    margin-top:10px;
+    max-width: 50%;
+}
+
+.info-text{
+    font-size: 16px;
+    color: var(--tertiary-text-color);
+    margin-top:10px;
+    line-height: 30px;
+}
+
+.gameCanvas{
+    margin:0px;
+    /* width: 80vw; */
+    background-color: var(--primary-bg-color);
+    box-sizing: border-box;
+}
+
+.exit{
+    color: var(--alert-color);
+    border: 1px solid var(--alert-color);
+    background-color: transparent;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-top:40px;
+    margin-bottom:40px;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;;
+    padding: 10px 40px 10px 40px;
+}
+
+.exit:hover{
+    background-color: var(--alert-color);
+    color: var(--tertiary-text-color);
+    transition:0.3s;
 }

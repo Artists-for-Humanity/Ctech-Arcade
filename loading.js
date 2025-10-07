@@ -104,22 +104,30 @@ function initializeLoading(isGamePage = false) {
     });
     
     // Show loading animation when returning from other pages
-    window.addEventListener('load', function() {
-        if (document.referrer && 
-            (document.referrer.includes('/game') || document.referrer.includes('index.html'))) {
-            const progressInterval = showLoading();
+    // window.addEventListener('load', function() {
+    //     if (document.referrer && 
+    //         (document.referrer.includes('/game') || document.referrer.includes('index.html'))) {
+    //         const progressInterval = showLoading();
             
-            setTimeout(() => {
-                if (progressInterval) clearInterval(progressInterval);
-                const progressFill = document.getElementById('progressBarFill');
-                if (progressFill) {
-                    progressFill.style.width = '100%';
-                }
+    //         setTimeout(() => {
+    //             if (progressInterval) clearInterval(progressInterval);
+    //             const progressFill = document.getElementById('progressBarFill');
+    //             if (progressFill) {
+    //                 progressFill.style.width = '100%';
+    //             }
                 
-                setTimeout(() => {
-                    hideLoading();
-                }, 300);
-            }, 1000);
-        }
-    });
+    //             setTimeout(() => {
+    //                 hideLoading();
+    //             }, 300);
+    //         }, 1000);
+    //     }
+    // });
+    window.addEventListener('load', function() {
+    // Only show loading overlay if coming from a different origin or direct navigation
+    // (not from our own navigation)
+    // Remove or comment out this block entirely if you don't want any loading on page load
+    // If you want to keep a quick flash for direct navigation, you can keep a minimal version
+    hideLoading();
+});
+    
 }
