@@ -1,13 +1,169 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game 6</title>
-    <link rel="stylesheet" href="game6.css">
+<meta charset="utf-8">
+<link rel="stylesheet" href="game6.css">
+<style>
+  body {
+    margin: 0;
+    background: #1e1e2f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  canvas {
+    border: 4px solid #000;
+  }
+  #hud {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    color: white;
+    font-family: sans-serif;
+    background-color: rgb(255, 0, 0);
+    border: 4px solid #000 ;
+    padding: 10px 45px 10px 45px;
+  }
+  #bossHP-hud {
+    position: absolute;
+    top: 10px;
+    left: 200px;
+    color: white;
+    font-family: sans-serif;
+    background-color: rgb(255, 0, 0);
+    border: 4px solid #000 ;
+    padding: 10px 45px 10px 45px;
+  }
+</style>
+<title>Game 6 - Erwin</title>
 </head>
 <body>
-    <h1>Welcome to Game 6!</h1>
-    back to <a href="../index.html">home</a>
+  <div id="hud">Health: 66</div>
+  <div id="bossHP-hud">Boss HP: 150</div>
+  <canvas id="game" width="800" height="450"></canvas>
+  <script>
+    const canvas = document.getElementById("game");
+const ctx = canvas.getContext("2d");
+
+const keys = {};
+window.addEventListener("keydown", (e) => (keys[e.key] = true));
+window.addEventListener("keyup", (e) => (keys[e.key] = false));
+
+let bgX = 0;
+const bgImg = new Image();
+bgImg.src =
+  "https://cdn.gamedevmarket.net/wp-content/uploads/20191203192024/Desert.png";
+
+class Player {
+  constructor() {
+    this.x = 350;
+    this.y = 350;
+    this.w = 113;
+    this.h = 113;
+    this.vx = 0;
+    this.vy = 0;
+    this.speed = 5;
+    this.jumpPower = 15;
+    this.onGround = false;
+    this.image = new Image();
+    this.image.src = "cup-head.png";
+  }
+
+  update() {
+    if (keys["ArrowLeft"]) this.vx = -this.speed;
+    else if (keys["ArrowRight"]) this.vx = this.speed;
+    else this.vx = 0;
+
+    if (keys["ArrowUp"] && this.onGround) {
+      this.vy = -this.jumpPower;
+      this.onGround = false;
+    }
+
+    this.vy += 0.8;
+    this.x += this.vx;
+    this.y += this.vy;
+
+    if (this.y + this.h >= 400) {
+      this.y = 400 - this.h;
+      this.vy = 0;
+      this.onGround = true;
+    }
+
+    this.x = Math.max(0, Math.min(this.x, canvas.width - this.w));
+  }
+
+  draw() {
+    if (this.image.complete) {
+      ctx.drawImage(this.image, this.x, this.y, this.w, this.h);
+    }
+  }
+}
+
+class Boss {
+  constructor() {
+    this.x = 600;
+    this.y = 300;
+    this.w = 115;
+    this.h = 108;
+    this.image = new Image();
+    this.image.src = "cupHead-boss.png";
+  }
+
+  update() {}
+
+  draw() {
+    if (this.image.complete) {
+      ctx.drawImage(this.image, this.x, this.y, this.w, this.h);
+    } else {
+      ctx.fillStyle = "red";
+      ctx.fillRect(this.x, this.y, this.w, this.h);
+    }
+  }
+}
+
+let player = new Player();
+let boss = new Boss();
+
+function update() {
+  player.update();
+  boss.update();
+
+  if (keys["ArrowRight"]) {
+    bgX -= 2;
+  } else if (keys["ArrowLeft"]) {
+    bgX += 2;
+  }
+
+  if (bgX <= -canvas.width) bgX = 0;
+  if (bgX >= canvas.width) bgX = 0;
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Draw background image
+  ctx.drawImage(bgImg, bgX, 0, canvas.width, canvas.height);
+  ctx.drawImage(bgImg, bgX + canvas.width, 0, canvas.width, canvas.height);
+
+  // ground
+  ctx.fillStyle = "#5ba985";
+  ctx.fillRect(0, 400, canvas.width, 50);
+
+  player.draw();
+  boss.draw();
+}
+
+function loop() {
+  update();
+  draw();
+  requestAnimationFrame(loop);
+}
+
+bgImg.onload = () => {
+  loop();
+};
+
+  </script>
 </body>
 </html>
