@@ -17,8 +17,11 @@ body{
     position: relative;
 }
 
-#score_container{
-  
+#white{
+    background-color: white;
+    z-index: 20;
+    height: 80px;
+    width: 600px;
 }
 
 
