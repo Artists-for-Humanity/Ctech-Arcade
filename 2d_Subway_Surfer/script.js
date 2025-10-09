@@ -19,17 +19,20 @@ function slide(){
     player.style.width = width + "px";
     player.style.left = left + "px";
     }, 1000);
-
 }
-
 
 function moveLeft(){
     let left = 
     parseInt(window.getComputedStyle(player)
     .getPropertyValue("left"));
-    left -= 200;
-    if(left>=25){
-        player.style.left = left + "px";
+    let width = 
+    parseInt(window.getComputedStyle(player)
+    .getPropertyValue("width"));
+    if(width<150){
+        left -= 200;
+        if(left>=25){
+            player.style.left = left + "px";
+        }
     }
 }
 
@@ -37,9 +40,14 @@ function moveRight(){
     let left = 
     parseInt(window.getComputedStyle(player)
     .getPropertyValue("left"));
-    left += 200;
-    if(left<=575){
-        player.style.left = left + "px";
+    let width = 
+    parseInt(window.getComputedStyle(player)
+    .getPropertyValue("width"));
+    if(width<150){
+        left += 200;
+        if(left<=575){
+            player.style.left = left + "px";
+        }
     }
 }
 
