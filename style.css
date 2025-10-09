@@ -51,7 +51,7 @@ body{
 /* GAME 7 STYLES */
 
 .game7{
-    background-image: url(./game7/assets/gameshot.png);  
+    background-image: url(./Shooter/assets/gameshot.png);  
     background-size: cover;
     background-position: center;
     position: relative;
