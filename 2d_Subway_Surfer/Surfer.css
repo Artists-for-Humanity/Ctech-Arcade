@@ -1,26 +1,44 @@
+
+
 body{
-    height: 100vh;
-    width: 100vh;
     margin: 0;
-    display:flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
+    background: #111;
+    color: #fff;
+    font-family: sans-serif;
+    text-align: center;
+}
+
+
+.game-border{
+    background: black;
+    display: flex;
+    height: 900px;
+    width: 1400px;
+
+}
+
+.left-side{
+    background-color: black;
+    height: 900px;
+    width: 100px;
+}
+
+.right-side{
+    background-color: black;
+    height: 900px;
+    width: 100px;
 }
 
 #game{
     width: 600px;
     height: 900px;
     margin: auto;
-    border: 1px solid black;
+    border: 1px solid white;
     box-sizing: border-box;
     position: relative;
+    justify-content: center;
+    z-index: 2;
 }
-
-#score_container{
-  
-}
-
 
 #barrier_1{
     height: 100px;
@@ -32,6 +50,7 @@ body{
     position: absolute;
     animation: movement 4s infinite linear;
     overflow: hidden;
+    z-index: 10;
 }
 
 #barrier_2{
@@ -44,6 +63,7 @@ body{
     position: absolute;
     animation: movement 3s infinite linear;
     overflow: hidden;
+    z-index: 10;
 }
 
 #barrier_3{
@@ -56,6 +76,7 @@ body{
     position: absolute;
     animation: movement 3s infinite linear;
     overflow: hidden;
+    z-index: 10;
 }
 
 #player{
@@ -65,9 +86,11 @@ body{
     position: absolute;
     top: 750px;
     left: 225px;
+    z-index: 5;
 }
 
 @keyframes movement{
     0%{top:-400px};
     100%{top:900px};
 }
+

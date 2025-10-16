@@ -19,17 +19,20 @@ function slide(){
     player.style.width = width + "px";
     player.style.left = left + "px";
     }, 1000);
-
 }
-
 
 function moveLeft(){
     let left = 
     parseInt(window.getComputedStyle(player)
     .getPropertyValue("left"));
-    left -= 200;
-    if(left>=25){
-        player.style.left = left + "px";
+    let width = 
+    parseInt(window.getComputedStyle(player)
+    .getPropertyValue("width"));
+    if(width==150){
+        left -= 200;
+        if(left>=25){
+            player.style.left = left + "px";
+        }
     }
 }
 
@@ -37,9 +40,14 @@ function moveRight(){
     let left = 
     parseInt(window.getComputedStyle(player)
     .getPropertyValue("left"));
-    left += 200;
-    if(left<=575){
-        player.style.left = left + "px";
+    let width = 
+    parseInt(window.getComputedStyle(player)
+    .getPropertyValue("width"));
+    if(width==150){
+        left += 200;
+        if(left<=575){
+            player.style.left = left + "px";
+        }
     }
 }
 
@@ -72,7 +80,8 @@ barrier_3.addEventListener('animationiteration', () => {
     counter++
 })
 
-setInterval(function(){
+
+setInterval(function(){ 
     var playerLeft = 
     parseInt(window.getComputedStyle(player)
     .getPropertyValue("left"));
@@ -94,29 +103,21 @@ setInterval(function(){
     var barrier_3Top = 
     parseInt(window.getComputedStyle(barrier_3)
     .getPropertyValue("top"));
+    
     if(playerLeft == barrier_1Left && 
         barrier_1Top<900&& 
         barrier_1Top>650){
-        alert("Game Over. Score: " + counter);
-        barrier_1.style.animation = "none";
-        barrier_2.style.animation = "none";
-        barrier_3.style.animation = "none";
+        
         }
     if(playerLeft == barrier_2Left &&
         barrier_2Top<900&&
         barrier_2Top>450){
-        alert("Game Over. Score:" + counter);
-        barrier_2.style.animation = "none";
-        barrier_1.style.animation = "none";
-        barrier_3.style.animation = "none";
+        
         }
     if(playerLeft == barrier_3Left &&
         barrier_3Top<900&&
         barrier_3Top>350){
-        alert("Game Over. Score:" + counter);
-        barrier_3.style.animation = "none";
-        barrier_2.style.animation = "none"
-        barrier_1.style.animation = "none";
+        
         }
     
 } ,1);
