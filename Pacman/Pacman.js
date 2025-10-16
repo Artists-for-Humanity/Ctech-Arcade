@@ -2,7 +2,7 @@ const canvas = document.querySelector('canvas');
 const c = canvas.getContext('2d');
 
 canvas.width = innerWitdh;
-canvas.height=innerHeight;
+canvas.height = innerHeight;
 
 class Boundary {
     constructor({position}) {
@@ -14,8 +14,7 @@ class Boundary {
         c.fillStyle = 'blue'
         c.fillRect(this.position.x, this.position.y, this.width, this.height)
     }
-
-}
+};
 
 const map = [
     ['-','-','-','-','-','-'],
@@ -25,6 +24,50 @@ const map = [
 ]
 const boundaries = [] 
 
+map.forEach((row, i) => {
+    row.forEach((symbol, j ) => {
+        switch (symbol) {
+            case '-':
+                boundaries.push(
+                    new Boundary({
+                        position: {
+                            x: Boundary.width * j, 
+                            y: Boundary.height * i
+                        }
+                    })
+                )
+                break
+        }
+    })
+})
+
+function animate() {
+    requestAnimationFrame(animate)
+    boundaries.forEach((boundary) => {
+    boundary.draw()
+    })
+    player.update()
+}
+
 boundaries.forEach((boundary) => {
     boundary.draw()
+})
+
+animate()
+
+addEventListener('keydown', ({ key }) => {
+    switch(key) {
+        case 'w':
+            player.velocity.y = -5
+            break
+        case 'a':
+            player.velocity.x = -5
+            break
+        case 's':
+            player.velocity.y = 5
+            break
+        case 'd':
+            player.velocity.x = 5
+            break
+        }
 });

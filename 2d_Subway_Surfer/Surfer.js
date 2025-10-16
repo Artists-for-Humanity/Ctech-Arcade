@@ -107,26 +107,17 @@ setInterval(function(){
     if(playerLeft == barrier_1Left && 
         barrier_1Top<900&& 
         barrier_1Top>650){
-        alert("Game Over. Score: " + counter + " Refresh to play again");
-        barrier_1.style.animation = "none";
-        barrier_2.style.animation = "none";
-        barrier_3.style.animation = "none";
+        
         }
     if(playerLeft == barrier_2Left &&
         barrier_2Top<900&&
         barrier_2Top>450){
-        alert("Game Over. Score:" + counter + " Refresh to play again");
-        barrier_2.style.animation = "none";
-        barrier_1.style.animation = "none";
-        barrier_3.style.animation = "none";
+        
         }
     if(playerLeft == barrier_3Left &&
         barrier_3Top<900&&
         barrier_3Top>350){
-        alert("Game Over. Score:" + counter + " Refresh to play again");
-        barrier_3.style.animation = "none";
-        barrier_2.style.animation = "none"
-        barrier_1.style.animation = "none";
+        
         }
     
 } ,1);

@@ -1,25 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2d Subway Surfers</title>
-    <link rel="stylesheet" href="Surfer.css">
-    <link rel="stylesheet" href="../style.css">
-    <script src="../loading.js"></script>
+  <meta charset="UTF-8">
+  <title>2d Subway Surfer</title>
+  <link rel="stylesheet" href="Surfer.css">
+  <link rel="stylesheet" href="../style.css">
+  <script src="../loading.js"></script>
 </head>
 <body>
-    <div id="game">
-        <div class="obstacle_zone">
-            <div id="barrier_1"></div>
-            <div id="barrier_2"></div>
-            <div id="barrier_3"></div>
-        </div>
-        <div id="player">
+    <div class="main-container">
 
+    <div>
+        <h1>Welcome to C-Tech-Arcade  l</h1>
+        <p>Choose a mini game below</p>
+    </div>
+    <div class="container">
+    <div class="game-title">2d Subway Surfer</div>
+    <div class="game-container">
+        <div class="game-info"> 
+            <div>
+            <div class="info-header">controls :</div>
+            <div class="controls-text1"> left-arrow-key: move left</div>
+            <div class="controls-text2"> right-arrow-key: move right</div>
+            <div class="controls-text3"> down-arrow-key: slide down</div>
+             <div class="info-header">background :</div>
+             <div class="info-text">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+             </div>
+             </div>
+
+             <a href="../index.html" class="exit">EXIT</a>
+            
+         </div>
+        
+        <div class="game-border">
+            <div class="left-side">
+            </div>
+            <div id="game">
+                <div class="obstacle_zone">
+                    <div id="barrier_1"></div>
+                    <div id="barrier_2"></div>
+                    <div id="barrier_3"></div>
+                </div>
+                <div id="player">
+                </div>
+            </div>
+            <div class="right-side">
+            </div>
         </div>
     </div>
+
+   
+
+    </div>
+    <script src="Surfer.js"></script>
+
+    <script>
+        // Initialize loading system for game page
+            initializeLoading(true);
+
+    </script>
 </body>
-<div id="white"></div>
-<script src="Surfer.js"></script>
 </html>
