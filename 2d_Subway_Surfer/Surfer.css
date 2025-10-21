@@ -17,17 +17,6 @@ body{
 
 }
 
-.left-side{
-    background-color: black;
-    height: 900px;
-    width: 100px;
-}
-
-.right-side{
-    background-color: black;
-    height: 900px;
-    width: 100px;
-}
 
 #game{
     width: 600px;
