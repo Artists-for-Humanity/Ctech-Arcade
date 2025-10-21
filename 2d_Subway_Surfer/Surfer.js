@@ -116,16 +116,19 @@ setInterval(function(){
         barrier_1Top<900&& 
         barrier_1Top>650){
         document.location.reload();
+        
         }
     if(playerLeft == barrier_2Left &&
         barrier_2Top<900&&
         barrier_2Top>450){
         document.location.reload();
+        
         }
     if(playerLeft == barrier_3Left &&
         barrier_3Top<900&&
         barrier_3Top>350){
         document.location.reload();
+        
         }
     
 } ,1);
