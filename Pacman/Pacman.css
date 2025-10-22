@@ -1,8 +1,5 @@
-.gameCanvas{
+canvas{
     width:100%;
-}
-
-.body {
-    margin: 0;
+    height:100%;
     background-color: black;
 }
