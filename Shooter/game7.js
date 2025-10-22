@@ -3,6 +3,15 @@ const ctx = canvas.getContext("2d");
 let mouseX = canvas.width / 2;
 let mouseY = canvas.height / 2;
 
+const playerImg = new Image();
+playerImg.src = "Ronaldo.png";
+
+const enemyImg = new Image();
+enemyImg.src = "Messi.png"; 
+
+const projectile = new Image();
+projectile.src = "ball.png";
+
 canvas.addEventListener("mousemove", (e) => {
   const rect = canvas.getBoundingClientRect();
   mouseX = e.clientX - rect.left;
@@ -14,7 +23,7 @@ canvas.addEventListener("mousemove", (e) => {
 const player = {
   x: canvas.width / 2,
   y: canvas.height / 2,
-  size: 40,
+  size: 80,
   speed: 4,
   turnSpeed: 1,     // radians per second
   dx: 0,
@@ -79,7 +88,7 @@ const speed = 0.5 + Math.random() * 1; // slower enemies
 
   enemies.push({
     x, y,
-    size: 22,
+    size: 60,
     speed
   });
 }
@@ -167,13 +176,19 @@ function drawPlayer() {
   ctx.rotate(player.angle);
 
   // body
-  ctx.fillStyle = "lime";
-  ctx.fillRect(-player.size/2, -player.size/2, player.size, player.size);
+  // Draw player image centered
+  if (playerImg.complete) {
+    ctx.drawImage(playerImg, -player.size/2, -player.size/2, player.size, player.size);
+  } else {
+    // fallback: draw shape if image not loaded
+    ctx.fillStyle = "lime";
+    ctx.fillRect(-player.size/2, -player.size/2, player.size, player.size);
+  }
 
   // gun (visible facing)
   const barrelW = player.size * 0.65;
   const barrelH = player.size * 0.18;
-  ctx.fillStyle = "#0a0";
+  ctx.fillStyle = "yellow";
   ctx.fillRect(player.size * 0.1, -barrelH/2, barrelW, barrelH);
 
 
@@ -184,12 +199,24 @@ function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   // bullets
-  ctx.fillStyle = "yellow";
-  bullets.forEach(b => ctx.fillRect(b.x - 3, b.y - 3, 6, 6));
+    bullets.forEach(b => {
+    if (projectile.complete) {
+      ctx.drawImage(projectile, b.x - 10, b.y - 10, 30, 30); // 20x20 size
+    } else {
+      ctx.fillStyle = "yellow";
+      ctx.fillRect(b.x - 3, b.y - 3, 6, 6);
+    }
+  });
 
   // enemies
-  ctx.fillStyle = "red";
-  enemies.forEach(en => ctx.fillRect(en.x - en.size/2, en.y - en.size/2, en.size, en.size));
+    enemies.forEach(en => {
+    if (enemyImg.complete) {
+      ctx.drawImage(enemyImg, en.x - en.size/2, en.y - en.size/2, en.size, en.size);
+    } else {
+      ctx.fillStyle = "red";
+      ctx.fillRect(en.x - en.size/2, en.y - en.size/2, en.size, en.size);
+    }
+  });
 
   // Player last so it draws on top
   drawPlayer();

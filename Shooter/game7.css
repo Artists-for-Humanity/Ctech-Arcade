@@ -48,6 +48,8 @@ body {
 
 canvas {
     background: #222;
+    background-image: url(field.png);
+    background-size: cover;
     display: block;
     margin: 40px auto 0 auto;
     border: 2px solid #fff;
