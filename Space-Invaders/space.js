@@ -1,7 +1,7 @@
 //board
 let tileSize = 32;
 let rows = 16;
-let columns = 16;
+let columns = 32;
 
 let board;
 let boardWidth = tileSize * columns; // 32 * 16
@@ -22,7 +22,7 @@ let ship = {
 }
 
 let shipImg;
-let shipVelocityX = tileSize; //ship moving speed
+let shipVelocityX = tileSize*2; //ship moving speed
 
 //aliens
 let alienArray = [];
