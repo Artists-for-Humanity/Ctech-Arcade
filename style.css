@@ -332,11 +332,12 @@ p {
     transition:0.3s;
 }
 
-.game7{
-    background-image: url(./Shooter/assets/gameshot.png);  
+.shooter{
+    background-image: url(./Shooter/assets/TopDown.png);  
     background-size: cover;
     background-position: center;
     position: relative;
     overflow: hidden;
-    color:white;
+    color:black;
+    font-weight: bolder;
 }
