@@ -1,7 +1,6 @@
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 
-//controls
 const keys = {};
 window.addEventListener("keydown", (e) => (keys[e.key.toLowerCase()] = true));
 window.addEventListener("keyup", (e) => (keys[e.key.toLowerCase()] = false));
@@ -57,17 +56,14 @@ class Player {
     this.x += this.vx;
     this.y += this.vy;
 
-    // Ground collision
     if (this.y + this.h >= 700) {
       this.y = 700 - this.h;
       this.vy = 0;
       this.onGround = true;
     }
 
-    // Screen bounds
     this.x = Math.max(0, Math.min(canvas.width - this.w, this.x));
 
-    // Update bullets
     this.bullets.forEach((b) => b.update());
     this.bullets = this.bullets.filter((b) => !b.offscreen);
   }
@@ -91,8 +87,8 @@ class Bullet {
   constructor(x, y) {
     this.x = x;
     this.y = y;
-    this.w = 20; // Adjust width as needed for your bullet image
-    this.h = 10; // Adjust height as needed for your bullet image
+    this.w = 20;
+    this.h = 10;
     this.speed = 10;
     this.offscreen = false;
     this.image = new Image();
@@ -108,7 +104,6 @@ class Bullet {
     if (this.image.complete) {
       ctx.drawImage(this.image, this.x, this.y, this.w, this.h);
     } else {
-      // Fallback if image isn't loaded yet
       ctx.beginPath();
       ctx.arc(this.x, this.y, 6, 0, Math.PI * 2);
       ctx.fillStyle = "yellow";
@@ -128,6 +123,7 @@ class Boss {
     this.image.src = "enemy.png";
     this.bullets = [];
     this.cooldown = 0;
+    this.flashTimer = 0;
   }
 
   update(player) {
@@ -140,6 +136,8 @@ class Boss {
       this.cooldown--;
     }
 
+    if (this.flashTimer > 0) this.flashTimer--;
+
     this.bullets.forEach((b) => b.update());
     this.bullets = this.bullets.filter((b) => !b.offscreen);
   }
@@ -151,17 +149,20 @@ class Boss {
   }
 
   draw() {
-    if (this.image.complete)
+    if (this.flashTimer > 0) {
+      ctx.fillStyle = "red";
+      ctx.fillRect(this.x, this.y, this.w, this.h);
+    } else if (this.image.complete) {
       ctx.drawImage(this.image, this.x, this.y, this.w, this.h);
-    else {
+    } else {
       ctx.fillStyle = "darkred";
       ctx.fillRect(this.x, this.y, this.w, this.h);
     }
+
     this.bullets.forEach((b) => b.draw());
   }
 }
 
-// Boss Bullet
 class BossBullet {
   constructor(x, y, targetX, targetY) {
     this.x = x;
@@ -174,12 +175,14 @@ class BossBullet {
     this.vy = (dy / len) * 4;
     this.offscreen = false;
   }
+
   update() {
     this.x += this.vx;
     this.y += this.vy;
     if (this.x < 0 || this.x > canvas.width || this.y > canvas.height)
       this.offscreen = true;
   }
+
   draw() {
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
@@ -188,19 +191,25 @@ class BossBullet {
   }
 }
 
+function collides(a, b) {
+  // Circle vs rect
+  if (a.r !== undefined) {
+    return (
+      a.x + a.r > b.x &&
+      a.x - a.r < b.x + b.w &&
+      a.y + a.r > b.y &&
+      a.y - a.r < b.y + b.h
+    );
+  } else {
+    return (
+      a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y
+    );
+  }
+}
+
 const player = new Player();
 const boss = new Boss();
 
-function collides(circle, rect) {
-  return (
-    circle.x + circle.r > rect.x &&
-    circle.x - circle.r < rect.x + rect.w &&
-    circle.y + circle.r > rect.y &&
-    circle.y - circle.r < rect.y + rect.h
-  );
-}
-
-//Game Logic
 let gameOver = false;
 let win = false;
 
@@ -215,11 +224,11 @@ function update() {
   if (bgX <= -canvas.width) bgX = 0;
   if (bgX >= canvas.width) bgX = 0;
 
-  // Player bullets hit boss
   player.bullets.forEach((b) => {
     if (collides(b, boss)) {
       boss.hp -= 5;
       b.offscreen = true;
+      boss.flashTimer = 10;
       if (boss.hp <= 0) {
         boss.hp = 0;
         win = true;
@@ -227,7 +236,6 @@ function update() {
     }
   });
 
-  //bullets hit players
   boss.bullets.forEach((b) => {
     if (collides(b, player)) {
       player.health -= 10;
@@ -245,7 +253,7 @@ function drawHUD() {
   ctx.fillRect(20, 20, 200, 30);
   ctx.fillRect(canvas.width - 220, 20, 200, 30);
 
-  // PlayerHealth
+  // Player Health
   ctx.fillStyle = "lime";
   ctx.fillRect(20, 20, (player.health / 100) * 200, 30);
   ctx.strokeStyle = "white";
@@ -254,7 +262,6 @@ function drawHUD() {
   ctx.font = "18px sans-serif";
   ctx.fillText(`Health: ${player.health}`, 30, 42);
 
-  // Boss HP
   ctx.fillStyle = "red";
   ctx.fillRect(canvas.width - 220, 20, (boss.hp / 150) * 200, 30);
   ctx.strokeStyle = "white";
@@ -270,7 +277,7 @@ function draw() {
   ctx.drawImage(bgImg, bgX, 0, canvas.width, canvas.height);
   ctx.drawImage(bgImg, bgX + canvas.width, 0, canvas.width, canvas.height);
 
-  // Ground h
+  // Ground
   ctx.fillStyle = "#5ba985";
   ctx.fillRect(0, 700, canvas.width, 50);
 
