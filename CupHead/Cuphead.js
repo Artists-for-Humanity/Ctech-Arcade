@@ -7,8 +7,8 @@ window.addEventListener("keyup", (e) => (keys[e.key.toLowerCase()] = false));
 
 let bgX = 0;
 const bgImg = new Image();
-bgImg.src =
-  "https://cdn.gamedevmarket.net/wp-content/uploads/20191203192024/Desert.png";
+bgImg.src = "background.png";
+//"https://cdn.gamedevmarket.net/wp-content/uploads/20191203192024/Desert.png";
 
 class Player {
   constructor() {
@@ -25,7 +25,7 @@ class Player {
     this.bullets = [];
     this.cooldown = 0;
     this.image = new Image();
-    this.image.src = "character.png";
+    this.image.src = "Player.png";
   }
 
   update() {
@@ -92,7 +92,7 @@ class Bullet {
     this.speed = 10;
     this.offscreen = false;
     this.image = new Image();
-    this.image.src = "bullet.png";
+    this.image.src = "Group 2.png";
   }
 
   update() {
