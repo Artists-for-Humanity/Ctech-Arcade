@@ -1,6 +1,9 @@
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 
+if (!canvas.width) canvas.width = 1000;
+if (!canvas.height) canvas.height = 700;
+
 const keys = {};
 window.addEventListener("keydown", (e) => (keys[e.key.toLowerCase()] = true));
 window.addEventListener("keyup", (e) => (keys[e.key.toLowerCase()] = false));
@@ -8,8 +11,8 @@ window.addEventListener("keyup", (e) => (keys[e.key.toLowerCase()] = false));
 let bgX = 0;
 const bgImg = new Image();
 bgImg.src = "background.png";
-//"https://cdn.gamedevmarket.net/wp-content/uploads/20191203192024/Desert.png";
 
+// Player Class
 class Player {
   constructor() {
     this.x = 150;
@@ -22,16 +25,18 @@ class Player {
     this.jumpPower = 16;
     this.onGround = false;
     this.health = 100;
+    this.maxHealth = 100;
     this.bullets = [];
     this.cooldown = 0;
     this.image = new Image();
     this.image.src = "Player.png";
+    this.regenTimer = 0;
   }
 
   update() {
     const left = keys["a"] || keys["arrowleft"];
     const right = keys["d"] || keys["arrowright"];
-    const jump = keys["w"] || keys["arrowup"];
+    const jump = keys[" "] || keys["arrowup"];
     const shoot = keys[" "] || keys["shift"];
 
     this.vx = 0;
@@ -66,6 +71,8 @@ class Player {
 
     this.bullets.forEach((b) => b.update());
     this.bullets = this.bullets.filter((b) => !b.offscreen);
+
+    if (this.health < this.maxHealth) this.regenTimer++;
   }
 
   shoot() {
@@ -112,6 +119,44 @@ class Bullet {
   }
 }
 
+class Enemy {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.w = 80;
+    this.h = 90;
+    this.speed = 2;
+    this.hp = 30;
+    this.image = new Image();
+    this.image.src = "enemy.png";
+    this.flashTimer = 0;
+    this.attackCooldown = 0;
+  }
+
+  update(player) {
+    if (player.x > this.x + 20) this.x += this.speed;
+    else if (player.x < this.x - 20) this.x -= this.speed;
+
+    this.y += 3;
+    if (this.y + this.h > 700) this.y = 700 - this.h;
+
+    if (this.flashTimer > 0) this.flashTimer--;
+    if (this.attackCooldown > 0) this.attackCooldown--;
+  }
+
+  draw() {
+    if (this.flashTimer > 0) {
+      ctx.fillStyle = "red";
+      ctx.fillRect(this.x, this.y, this.w, this.h);
+    } else if (this.image.complete) {
+      ctx.drawImage(this.image, this.x, this.y, this.w, this.h);
+    } else {
+      ctx.fillStyle = "brown";
+      ctx.fillRect(this.x, this.y, this.w, this.h);
+    }
+  }
+}
+
 class Boss {
   constructor() {
     this.x = 850;
@@ -149,16 +194,13 @@ class Boss {
   }
 
   draw() {
-    if (this.flashTimer > 0) {
-      ctx.fillStyle = "red";
-      ctx.fillRect(this.x, this.y, this.w, this.h);
-    } else if (this.image.complete) {
+    // Removed the 'if (this.flashTimer > 0)' block
+    if (this.image.complete) {
       ctx.drawImage(this.image, this.x, this.y, this.w, this.h);
     } else {
-      ctx.fillStyle = "darkred";
+      ctx.fillStyle = "transparent";
       ctx.fillRect(this.x, this.y, this.w, this.h);
     }
-
     this.bullets.forEach((b) => b.draw());
   }
 }
@@ -191,8 +233,8 @@ class BossBullet {
   }
 }
 
+// Collision
 function collides(a, b) {
-  // Circle vs rect
   if (a.r !== undefined) {
     return (
       a.x + a.r > b.x &&
@@ -209,9 +251,18 @@ function collides(a, b) {
 
 const player = new Player();
 const boss = new Boss();
+const enemies = [
+  new Enemy(600, 600),
+  new Enemy(1200, 600),
+  new Enemy(1800, 600),
+];
 
 let gameOver = false;
 let win = false;
+
+const REGEN_DELAY_FRAMES = 180;
+const REGEN_AMOUNT = 0.2;
+let enemySpawnTimer = 0;
 
 function update() {
   if (gameOver || win) return;
@@ -223,6 +274,46 @@ function update() {
   if (keys["a"] || keys["arrowleft"]) bgX += 2;
   if (bgX <= -canvas.width) bgX = 0;
   if (bgX >= canvas.width) bgX = 0;
+
+  if (player.health < player.maxHealth) {
+    if (player.regenTimer > REGEN_DELAY_FRAMES) {
+      player.health += REGEN_AMOUNT;
+      if (player.health > player.maxHealth) {
+        player.health = player.maxHealth;
+      }
+    }
+  }
+
+  enemies.forEach((enemy) => {
+    enemy.update(player);
+
+    if (collides(enemy, player)) {
+      if (enemy.attackCooldown <= 0) {
+        player.health -= 5;
+        enemy.attackCooldown = 60; // delay between hits
+        player.regenTimer = 0;
+        if (player.health <= 0) gameOver = true;
+      }
+    }
+
+    player.bullets.forEach((b) => {
+      if (collides(b, enemy)) {
+        enemy.hp -= 10;
+        b.offscreen = true;
+        enemy.flashTimer = 10;
+      }
+    });
+  });
+
+  for (let i = enemies.length - 1; i >= 0; i--) {
+    if (enemies[i].hp <= 0) enemies.splice(i, 1);
+  }
+
+  enemySpawnTimer++;
+  if (enemySpawnTimer > 360) {
+    enemies.push(new Enemy(canvas.width, 600));
+    enemySpawnTimer = 0;
+  }
 
   player.bullets.forEach((b) => {
     if (collides(b, boss)) {
@@ -240,6 +331,7 @@ function update() {
     if (collides(b, player)) {
       player.health -= 10;
       b.offscreen = true;
+      player.regenTimer = 0;
       if (player.health <= 0) {
         player.health = 0;
         gameOver = true;
@@ -260,8 +352,9 @@ function drawHUD() {
   ctx.strokeRect(20, 20, 200, 30);
   ctx.fillStyle = "white";
   ctx.font = "18px sans-serif";
-  ctx.fillText(`Health: ${player.health}`, 30, 42);
+  ctx.fillText(`Health: ${Math.ceil(player.health)}`, 30, 42);
 
+  // Boss Health
   ctx.fillStyle = "red";
   ctx.fillRect(canvas.width - 220, 20, (boss.hp / 150) * 200, 30);
   ctx.strokeStyle = "white";
@@ -273,15 +366,14 @@ function drawHUD() {
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  // Background
   ctx.drawImage(bgImg, bgX, 0, canvas.width, canvas.height);
   ctx.drawImage(bgImg, bgX + canvas.width, 0, canvas.width, canvas.height);
 
-  // Ground
   ctx.fillStyle = "#5ba985";
   ctx.fillRect(0, 700, canvas.width, 50);
 
   player.draw();
+  enemies.forEach((enemy) => enemy.draw());
   boss.draw();
   drawHUD();
 
@@ -306,3 +398,4 @@ function loop() {
 }
 
 bgImg.onload = () => loop();
+if (!bgImg.src || bgImg.complete) loop();
