@@ -1,19 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game 3</title>
-    <link rel="stylesheet" href="game3.css">
-    <link rel="stylesheet" href="../style.css">
-    <script src="../loading.js"></script>
-</head>
-<body>
-    <h1>Welcome to Game 3!</h1>
-    back to <a href="../index.html">home</a>
+	<head>
+		<meta charset="UTF-8" />
+		<title>Top-Down Shooter</title>
+		<link rel="stylesheet" href="game3.css" />
+		<link rel="stylesheet" href="../style.css" />
+		<script src="../loading.js"></script>
+	</head>
+	<body>
+		<div class="main-container">
+			<div>
+				<h1>Welcome to C-Tech-Arcade l</h1>
+				<p>Choose a mini game below</p>
+			</div>
+			<div class="container">
+				<div class="game-title">2D-Mario</div>
+				<div class="game-container">
+					<div class="game-info">
+						<div>
+							<div class="info-header">controls :</div>
+							<div class="controls">
+								<img src="../assets/mouse.png" alt="mouse" srcset="" />
+								<img src="../assets/control.png" alt="controls" srcset="" />
+								<img src="../assets/arrows.png" alt="arrows" srcset="" />
+							</div>
+							<div class="info-header">background :</div>
+							<div class="info-text">
+								After bowsers countless attempts and failures. He finally
+								decided to take a different approach by going extremely high up
+								in the sky so it’s difficult for mario to catch up, but little
+								does he know Mario would be determined to reach and save
+								princess peach.
+							</div>
+						</div>
 
-    <script>
-        // Initialize loading system for game page
-    </script>
-</body>
-</html> 
+						<a href="../index.html" class="exit">EXIT</a>
+					</div>
+					<canvas
+						class="gameCanvas"
+						id="gameCanvas"
+						width="1300"
+						height="750"
+					></canvas>
+				</div>
+			</div>
+
+			<!-- <p id="score">Score: 0</p> -->
+		</div>
+		<script src="game3.js" type="module"></script>
+
+		<script>
+			// Initialize loading system for game page
+			initializeLoading(true);
+		</script>
+	</body>
+</html>
