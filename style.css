@@ -132,7 +132,7 @@ p {
     cursor: pointer;
     text-decoration: none;
     transition:0.3s;
-     filter: grayscale(100%);
+     filter: grayscale(60%);
 }
 
 .game:hover{
@@ -339,5 +339,55 @@ p {
     position: relative;
     overflow: hidden;
     color:black;
+    font-weight: bolder;
+}
+
+.cuphead{
+    background-image: url(./assets/cuphead-preview.png);  
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    overflow: hidden;
+    color:black;
+    font-weight: bolder;
+}
+
+.space{
+    background-image: url(./assets/space-preview.png);  
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    overflow: hidden;
+    color:black;
+    font-weight: bolder;
+}
+
+.mario {
+    background-image: url(./assets/mario-preview.png);  
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    overflow: hidden;
+    color:white;
+    font-weight: bolder;
+}
+
+.subway {
+    background-image: url(./assets/subway-preview.png);  
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    overflow: hidden;
+    color:white;
+    font-weight: bolder;
+}
+
+.jump {
+    background-image: url(./assets/jump-preview.png);  
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    overflow: hidden;
+    color:white;
     font-weight: bolder;
 }
