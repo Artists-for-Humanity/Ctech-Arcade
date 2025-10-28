@@ -5,7 +5,8 @@
 const canvas = document.querySelector('canvas')
 
 const c = canvas.getContext('2d')
-
+const platformImg = new Image();
+platformImg.src = "Platform.png";
 console.log(c);
 
 const gravity = 0.5;
@@ -19,7 +20,7 @@ class Enemies{
         this.width = 30;
         this.height = 30;
         this.velocity = {
-            x: -1,
+            x: 0,
             y: 1
         }
 
@@ -31,6 +32,8 @@ class Enemies{
     }
 
     update() {
+   
+
         this.draw();
         
         this.position.y += this.velocity.y
@@ -39,8 +42,8 @@ class Enemies{
         if (this.position.y + this.height + this.velocity.y <= canvas.height) 
             this.velocity.y += gravity
 
-        console.log(this.position.x % 20)
-        if (this.position.x <= this.InitialX - 200){
+        console.log("enermy position" , this.position.x )
+        if (this.position.x <= this.InitialX - 200 ){
             console.log("This is been called")
             this.velocity.x += 2
     } else if (this.position.x >= this.InitialX){
@@ -203,43 +206,7 @@ function animate() {
     enemies.update()
     console.log(enemies.position.x)
     player.update()
-    if (keys.right.pressed && player.position.x <  500) {
-        player.velocity.x = 5
-    } else if (keys.left.pressed && player.position.x > 100) {
-        player.velocity.x = -5
-    } else {
-        player.velocity.x = 0
-
-        if (keys.right.pressed) {
-            scrollOffset += 5
-            platformBases.forEach(platformBase => {
-                platformBase.position.x -= 5
-            })
-            platforms.forEach(platform => {
-                platform.position.x -= 5
-            })
-            enemies.position.x -= 1
-        } else if (keys.left.pressed) {
-            scrollOffset -= 5
-            platformBases.forEach(platformBase => {
-                platformBase.position.x += 5
-            })
-            platforms.forEach(platform => {
-                platform.position.x += 5
-            })
-            enemies.position.x += 1
-        }
-        console.log(scrollOffset)
-        // Win situation
-        if (scrollOffset > 2000) {
-            console.log("You are win")
-        }
-        // Lose situation
-        if (player.position.y > canvas.height || player.position.y < 0) {
-            init()
-        }
-
-    }
+    movePlatform()
     
     // Collison Block
     platforms.forEach(platform => {
@@ -259,6 +226,50 @@ function animate() {
         }
     })
 
+}
+
+function movePlatform(){
+if (keys.right.pressed && player.position.x <  500) {
+        player.velocity.x = 5
+    } else if (keys.left.pressed && player.position.x > 100) {
+        player.velocity.x = -5
+    } else {
+        player.velocity.x = 0
+        if (keys.right.pressed) {
+            scrollOffset += 5
+            platformBases.forEach(platformBase => {
+                platformBase.position.x -= 5
+
+            })
+            platforms.forEach(platform => {
+                platform.position.x -= 5
+            })
+            enemies.position.x -= 5
+        } else if (keys.left.pressed) {
+            scrollOffset -= 5
+            platformBases.forEach(platformBase => {
+                platformBase.position.x += 5
+            })
+            platforms.forEach(platform => {
+                platform.position.x += 5
+                // console.log("platform position: ", platform.position.x[0] )
+            })
+            enemies.position.x += 5
+        }
+        platforms.forEach(platform => {
+            console.log("platform position: ", platform[0].position.x)
+        })
+        console.log("scrolloffset:", scrollOffset)
+        // Win situation
+        if (scrollOffset > 2000) {
+            console.log("You are win")
+        }
+        // Lose situation
+        if (player.position.y > canvas.height || player.position.y < 0) {
+            init()
+        }
+
+    }
 }
 init()
 animate()
@@ -281,6 +292,7 @@ addEventListener('keydown', ({ keyCode }) => {
             console.log("down")
     }
     console.log(keys.right.pressed);
+
 })
 addEventListener('keyup', ({ keyCode }) => {
     console.log(keyCode)
@@ -302,3 +314,4 @@ addEventListener('keyup', ({ keyCode }) => {
     }
     console.log(keys.right.pressed);
 })
+
