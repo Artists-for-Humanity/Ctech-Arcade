@@ -80,8 +80,16 @@ barrier_3.addEventListener('animationiteration', () => {
     counter++
 })
 
+const score_display = document.getElementById("score_display")
+let score = 0
+function updateScore(counter){
+    score =+ counter;
+    score_display.textContent = score;
+}
 
-setInterval(function(){ 
+
+setInterval(function(){
+    updateScore(counter)
     var playerLeft = 
     parseInt(window.getComputedStyle(player)
     .getPropertyValue("left"));
@@ -107,16 +115,19 @@ setInterval(function(){
     if(playerLeft == barrier_1Left && 
         barrier_1Top<900&& 
         barrier_1Top>650){
+        document.location.reload();
         
         }
     if(playerLeft == barrier_2Left &&
         barrier_2Top<900&&
         barrier_2Top>450){
+        document.location.reload();
         
         }
     if(playerLeft == barrier_3Left &&
         barrier_3Top<900&&
         barrier_3Top>350){
+        document.location.reload();
         
         }
     
