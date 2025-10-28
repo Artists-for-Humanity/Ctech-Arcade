@@ -12,8 +12,8 @@ body{
 .game-border{
     background: black;
     display: flex;
-    height: 900px;
-    width: 1400px;
+    height: 100%;
+    width: 100%;
 
 }
 
@@ -31,9 +31,9 @@ body{
 
 #game{
     width: 600px;
-    height: 900px;
+    height: 800px;
     margin: auto;
-    border: 1px solid white;
+    /* border: 1px solid white; */
     box-sizing: border-box;
     position: relative;
     justify-content: center;
@@ -84,7 +84,7 @@ body{
     width: 150px;
     background-color: green;
     position: absolute;
-    top: 750px;
+    top: 600px;
     left: 225px;
     z-index: 5;
 }
