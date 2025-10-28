@@ -43,10 +43,12 @@ class Enemies{
             this.velocity.y += gravity
 
         console.log("enermy position" , this.position.x )
-        if (this.position.x <= this.InitialX - 200 ){
+        console.log(platforms[1].position.x)
+        // if (this.position.x <= this.InitialX - 200 ){
+        if (this.position.x <= platforms[1].position.x ){
             console.log("This is been called")
             this.velocity.x += 2
-    } else if (this.position.x >= this.InitialX){
+    } else if (this.position.x >= platforms[1].position.x + 100){
             this.velocity.x -= 2
     }else if (this.position.x > this.InitialX + 10){
             this.velocity.x =0
@@ -122,7 +124,7 @@ class PlatformBase{
     draw() {
         c.fillStyle = "blue";
         c.fillRect(this.position.x, this.position.y, this.width, this.height)
-        console.log("Have been set")
+        // console.log("Have been set")
     }
 }
 let platformBases = [new PlatformBase({ x: 520, y: 300, width: 100 }),
@@ -167,7 +169,7 @@ function init() {
      player = new Player()
      platforms = [new Platform({ x: 50, }),
     new Platform({ x: 250, }),
-    new Platform({ x: 450 + 100, }),
+    new Platform({ x: 450 + 100 }),
     new Platform({ x: 650, }),
     new Platform({ x: 850, }),
     new Platform({ x: 1050, }),
@@ -244,7 +246,7 @@ if (keys.right.pressed && player.position.x <  500) {
             platforms.forEach(platform => {
                 platform.position.x -= 5
             })
-            enemies.position.x -= 5
+            // enemies.position.x -= 5
         } else if (keys.left.pressed) {
             scrollOffset -= 5
             platformBases.forEach(platformBase => {
@@ -254,15 +256,15 @@ if (keys.right.pressed && player.position.x <  500) {
                 platform.position.x += 5
                 // console.log("platform position: ", platform.position.x[0] )
             })
-            enemies.position.x += 5
+            // enemies.position.x += 5
         }
-        platforms.forEach(platform => {
-            console.log("platform position: ", platform[0].position.x)
-        })
-        console.log("scrolloffset:", scrollOffset)
+        // platforms.forEach(platform => {
+            console.log("platform position: ", platforms[0].position.x)
+        // })
+        // console.log("scrolloffset:", scrollOffset)
         // Win situation
         if (scrollOffset > 2000) {
-            console.log("You are win")
+            // console.log("You are win")
         }
         // Lose situation
         if (player.position.y > canvas.height || player.position.y < 0) {
@@ -277,19 +279,19 @@ addEventListener('keydown', ({ keyCode }) => {
     console.log(keyCode)
     switch (keyCode) {
         case 65: 
-            console.log("left")
+            // console.log("left")
             keys.left.pressed = true;
             break
         case 68:
-            console.log("right")
+            // console.log("right")
             keys.right.pressed = true;
             break
         case (32 || 87): 
-            console.log("up")
+            // console.log("up")
             player.velocity.y -= 10
             break
         case 83:
-            console.log("down")
+            // console.log("down")
     }
     console.log(keys.right.pressed);
 
@@ -298,19 +300,19 @@ addEventListener('keyup', ({ keyCode }) => {
     console.log(keyCode)
     switch (keyCode) {
         case 65: 
-            console.log("left")
+            // console.log("left")
             keys.left.pressed = false;
             break
         case 68:
-            console.log("right")
+            // console.log("right")
             keys.right.pressed = false;
             break
         case 87: 
-            console.log("up")
+            // console.log("up")
             player.velocity.y -= 0
             break
         case 83:
-            console.log("down")
+            // console.log("down")
     }
     console.log(keys.right.pressed);
 })
