@@ -22,6 +22,8 @@ class Enemies{
             x: -1,
             y: 1
         }
+
+        this.InitialX = this.position.x
     }
     draw() {
         c.fillStyle = "red";
@@ -36,6 +38,20 @@ class Enemies{
 
         if (this.position.y + this.height + this.velocity.y <= canvas.height) 
             this.velocity.y += gravity
+
+        console.log(this.position.x % 20)
+        if (this.position.x <= this.InitialX - 200){
+            console.log("This is been called")
+            this.velocity.x += 2
+    } else if (this.position.x >= this.InitialX){
+            this.velocity.x -= 2
+    }else if (this.position.x > this.InitialX + 10){
+            this.velocity.x =0
+    }
+    
+    if(this.velocity.x > 1){
+        this.velocity.x = 1
+    }
 
     }
 }
@@ -85,7 +101,6 @@ class Platform{
     draw() {
         c.fillStyle = "blue";
         c.fillRect(this.position.x, this.position.y, this.width, this.height)
-        console.log("Have been set")
     }
 }
 
@@ -175,6 +190,7 @@ function init() {
 
      scrollOffset = 0
 }
+
 function animate() {
     requestAnimationFrame(animate)
     c.clearRect(0, 0, canvas.width, canvas.height)
@@ -185,6 +201,7 @@ function animate() {
         PlatformBase.draw()
     })
     enemies.update()
+    console.log(enemies.position.x)
     player.update()
     if (keys.right.pressed && player.position.x <  500) {
         player.velocity.x = 5
@@ -201,6 +218,7 @@ function animate() {
             platforms.forEach(platform => {
                 platform.position.x -= 5
             })
+            enemies.position.x -= 1
         } else if (keys.left.pressed) {
             scrollOffset -= 5
             platformBases.forEach(platformBase => {
@@ -209,6 +227,7 @@ function animate() {
             platforms.forEach(platform => {
                 platform.position.x += 5
             })
+            enemies.position.x += 1
         }
         console.log(scrollOffset)
         // Win situation
@@ -221,6 +240,7 @@ function animate() {
         }
 
     }
+    
     // Collison Block
     platforms.forEach(platform => {
         if (player.position.y + player.height <= platform.position.y && player.position.y + player.height + player.velocity.y >= platform.position.y && player.position.x + player.width >= platform.position.x && player.position.x <= platform.width + platform.position.x) {
@@ -229,7 +249,6 @@ function animate() {
         if (enemies.position.y + enemies.height <= platform.position.y && enemies.position.y + enemies.height + enemies.velocity.y >= platform.position.y && enemies.position.x + enemies.width >= platform.position.x && enemies.position.x <= platform.width + platform.position.x) {
             enemies.velocity.y = 0
         }
-        console.log("go")
     })
     platformBases.forEach(platformBase => {
         if (player.position.y + player.height <= platformBase.position.y && player.position.y + player.height + player.velocity.y >= platformBase.position.y && player.position.x + player.width >= platformBase.position.x && player.position.x <= platformBase.width + platformBase.position.x) {
@@ -238,12 +257,11 @@ function animate() {
         if (enemies.position.y + enemies.height <= platformBase.position.y && enemies.position.y + enemies.height + enemies.velocity.y >= platformBase.position.y && enemies.position.x + enemies.width >= platformBase.position.x && enemies.position.x <= platformBase.width + platformBase.position.x) {
             enemies.velocity.y = 0
         }
-        console.log("go")
     })
+
 }
 init()
 animate()
-
 addEventListener('keydown', ({ keyCode }) => {
     console.log(keyCode)
     switch (keyCode) {
