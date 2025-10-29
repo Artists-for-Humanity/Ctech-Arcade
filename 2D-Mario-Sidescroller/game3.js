@@ -7,14 +7,13 @@ const canvas = document.querySelector('canvas')
 const c = canvas.getContext('2d')
 const platformImg = new Image();
 platformImg.src = "Platform.png";
-console.log(c);
 
 const gravity = 0.5;
 const score = 0;
 class Enemies{
-    constructor() {
+    constructor({x, spot}) {
         this.position = {
-            x: 400,
+            x: x,
             y: 500
         }
         this.width = 30;
@@ -23,6 +22,10 @@ class Enemies{
             x: 0,
             y: 1
         }
+
+        this.spot = spot
+
+        this.status = true
 
         this.InitialX = this.position.x
     }
@@ -33,38 +36,34 @@ class Enemies{
 
     update() {
    
+        if (this.status) {
+            this.draw();        
+            this.position.y += this.velocity.y
+            this.position.x += this.velocity.x
 
-        this.draw();
-        
-        this.position.y += this.velocity.y
-        this.position.x += this.velocity.x
+            if (this.position.y + this.height + this.velocity.y <= canvas.height)
+                this.velocity.y += gravity
 
-        if (this.position.y + this.height + this.velocity.y <= canvas.height) 
-            this.velocity.y += gravity
-
-        console.log("enermy position" , this.position.x )
-        console.log(platforms[1].position.x)
-        // if (this.position.x <= this.InitialX - 200 ){
-        if (this.position.x <= platforms[1].position.x ){
-            console.log("This is been called")
-            this.velocity.x += 2
-    } else if (this.position.x >= platforms[1].position.x + 100){
-            this.velocity.x -= 2
-    }else if (this.position.x > this.InitialX + 10){
-            this.velocity.x =0
-    }
+            // if (this.position.x <= this.InitialX - 200 ){
+            if (this.position.x <= platforms[this.spot].position.x) {
+                this.velocity.x += 2
+            } else if (this.position.x >= platforms[this.spot].position.x + 100) {
+                this.velocity.x -= 2
+            }
     
-    if(this.velocity.x > 1){
-        this.velocity.x = 1
-    }
-
+            if (this.velocity.x > 1) {
+                this.velocity.x = 1
+            }
+        } else {
+            this.position.x = null
+        }
     }
 }
 class Player{
     constructor() {
         this.position = {
             x: 100,
-            y: 100,
+            y: 500,
         }
         this.velocity = {
             x:0,
@@ -124,7 +123,6 @@ class PlatformBase{
     draw() {
         c.fillStyle = "blue";
         c.fillRect(this.position.x, this.position.y, this.width, this.height)
-        // console.log("Have been set")
     }
 }
 let platformBases = [new PlatformBase({ x: 520, y: 300, width: 100 }),
@@ -134,7 +132,11 @@ let platformBases = [new PlatformBase({ x: 520, y: 300, width: 100 }),
     new PlatformBase({ x: 900, y: 300, width: 100 }),
 
 ]
-    let enemies = new Enemies()
+let enemies = [new Enemies({ x: 200, spot: 1 }),
+    new Enemies({ x: 450, spot: 3 }),
+    new Enemies({ x: 850, spot: 5 }),
+    new Enemies({ x: 1250, spot: 7 }),
+    new Enemies({ x: 1650, spot: 9 })]
     let player = new Player()
     let platforms = [new Platform({ x: 50, }),
     new Platform({ x: 250, }),
@@ -165,9 +167,13 @@ function init() {
     new PlatformBase({ x: 810, y: 600, width: 100 }),
     new PlatformBase({ x: 900, y: 300, width: 100 }),]
 
-     enemies = new Enemies()
-     player = new Player()
-     platforms = [new Platform({ x: 50, }),
+    enemies = [new Enemies({ x: 200, spot: 1 }),
+    new Enemies({ x: 450, spot: 3 }),
+    new Enemies({ x: 850, spot: 5 }),
+    new Enemies({ x: 1250, spot: 7 }),
+    new Enemies({ x: 1650, spot: 9 })]
+    player = new Player()
+    platforms = [new Platform({ x: 50, }),
     new Platform({ x: 250, }),
     new Platform({ x: 450 + 100 }),
     new Platform({ x: 650, }),
@@ -193,7 +199,9 @@ function init() {
         }
     }
 
-     scrollOffset = 0
+    scrollOffset = 0
+    
+    
 }
 
 function animate() {
@@ -205,33 +213,36 @@ function animate() {
     platformBases.forEach(PlatformBase => {
         PlatformBase.draw()
     })
-    enemies.update()
-    console.log(enemies.position.x)
+    enemies.forEach(enemie =>{enemie.update()})
     player.update()
     movePlatform()
-    
+    handleAttack()
     // Collison Block
     platforms.forEach(platform => {
         if (player.position.y + player.height <= platform.position.y && player.position.y + player.height + player.velocity.y >= platform.position.y && player.position.x + player.width >= platform.position.x && player.position.x <= platform.width + platform.position.x) {
             player.velocity.y = 0
         }
-        if (enemies.position.y + enemies.height <= platform.position.y && enemies.position.y + enemies.height + enemies.velocity.y >= platform.position.y && enemies.position.x + enemies.width >= platform.position.x && enemies.position.x <= platform.width + platform.position.x) {
-            enemies.velocity.y = 0
-        }
+       enemies.forEach(enemy => {
+            if (enemy.position.y + enemy.height <= platform.position.y && enemy.position.y + enemy.height + enemy.velocity.y >= platform.position.y && enemy.position.x + enemy.width >= platform.position.x && enemy.position.x <= platform.width + platform.position.x) {
+                enemy.velocity.y = 0
+            }
+        })
     })
     platformBases.forEach(platformBase => {
         if (player.position.y + player.height <= platformBase.position.y && player.position.y + player.height + player.velocity.y >= platformBase.position.y && player.position.x + player.width >= platformBase.position.x && player.position.x <= platformBase.width + platformBase.position.x) {
             player.velocity.y = 0
         }
-        if (enemies.position.y + enemies.height <= platformBase.position.y && enemies.position.y + enemies.height + enemies.velocity.y >= platformBase.position.y && enemies.position.x + enemies.width >= platformBase.position.x && enemies.position.x <= platformBase.width + platformBase.position.x) {
-            enemies.velocity.y = 0
-        }
     })
+    // console.log(player.position.y + 10 == enemies.position.y)
+    // (player.position.y + 5 == enemies.position.y)
+    // (player.position.x == enemies.position.x || player.position.x == enemies.position.x + 20 || player.position.x == enemies.position.x - 20)
+    // (player.velocity.y != 0)
+    // console.log(player.velocity.y)
 
 }
 
 function movePlatform(){
-if (keys.right.pressed && player.position.x <  500) {
+if (keys.right.pressed && player.position.x < 1000) {
         player.velocity.x = 5
     } else if (keys.left.pressed && player.position.x > 100) {
         player.velocity.x = -5
@@ -246,7 +257,9 @@ if (keys.right.pressed && player.position.x <  500) {
             platforms.forEach(platform => {
                 platform.position.x -= 5
             })
-            // enemies.position.x -= 5
+            enemies.forEach(enemy => {
+                enemy.position.x -= 5
+            })
         } else if (keys.left.pressed) {
             scrollOffset -= 5
             platformBases.forEach(platformBase => {
@@ -254,12 +267,12 @@ if (keys.right.pressed && player.position.x <  500) {
             })
             platforms.forEach(platform => {
                 platform.position.x += 5
-                // console.log("platform position: ", platform.position.x[0] )
             })
-            // enemies.position.x += 5
+            enemies.forEach(enemy => {
+                enemy.position.x += 5
+            })
         }
         // platforms.forEach(platform => {
-            console.log("platform position: ", platforms[0].position.x)
         // })
         // console.log("scrolloffset:", scrollOffset)
         // Win situation
@@ -273,10 +286,28 @@ if (keys.right.pressed && player.position.x <  500) {
 
     }
 }
+
+
+function handleAttack() {
+    enemies.forEach(enemy => {
+        if (!enemy.status) return;
+
+        const yCollision = (player.position.y + player.height) >= enemy.position.y && (player.position.y + player.height) <= enemy.position.y + enemy.height;
+        const xCollision = Math.abs(player.position.x - enemy.position.x) < enemy.width; 
+
+        if (yCollision && xCollision && player.velocity.y > 0) {
+            enemy.status = false
+            player.velocity.y -= 10
+        } else if (xCollision && Math.abs(player.position.y - enemy.position.y) <= enemy.height && enemies.status) {
+            init()
+        }
+    })
+}
+
+
 init()
 animate()
 addEventListener('keydown', ({ keyCode }) => {
-    console.log(keyCode)
     switch (keyCode) {
         case 65: 
             // console.log("left")
@@ -293,11 +324,9 @@ addEventListener('keydown', ({ keyCode }) => {
         case 83:
             // console.log("down")
     }
-    console.log(keys.right.pressed);
 
 })
 addEventListener('keyup', ({ keyCode }) => {
-    console.log(keyCode)
     switch (keyCode) {
         case 65: 
             // console.log("left")
@@ -314,6 +343,5 @@ addEventListener('keyup', ({ keyCode }) => {
         case 83:
             // console.log("down")
     }
-    console.log(keys.right.pressed);
 })
 
