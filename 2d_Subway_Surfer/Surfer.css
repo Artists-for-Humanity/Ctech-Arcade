@@ -44,7 +44,10 @@ body{
     height: 100px;
     width: 150px;
     margin: 0;
-    background-color: red;
+    background-image: url('assets/redcar.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
     top: 1000px;
     left: 225px;
     position: absolute;
@@ -60,7 +63,10 @@ body{
     height: 300px;
     width: 150px;
     margin: 0;
-    background-color: red;
+    background-image: url('assets/bluecar.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
     top: 900px;
     left: 25px;
     position: absolute;
@@ -76,7 +82,10 @@ body{
     height: 400px;
     width: 150px;
     margin: 0;
-    background-color: red;
+    background-image: url('assets/redcar.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
     top: 900px;
     left: 25px;
     position: absolute;

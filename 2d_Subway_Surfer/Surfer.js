@@ -75,18 +75,33 @@ barrier_1.addEventListener('animationiteration', () => {
     var random = Math.floor(Math.random() * 3);
     left = 25 + random * 200;
     barrier_1.style.left = left + "px";
+    
+    // Randomly assign red or blue car
+    var carColor = Math.random() < 0.5 ? 'redcar' : 'bluecar';
+    barrier_1.style.backgroundImage = `url('assets/${carColor}.png')`;
+    
     counter++;
 });
 barrier_2.addEventListener('animationiteration', () => {
     var random = Math.floor(Math.random() * 3);
     left = 25 + random * 200;
     barrier_2.style.left = left + "px";
+    
+    // Randomly assign red or blue car
+    var carColor = Math.random() < 0.5 ? 'redcar' : 'bluecar';
+    barrier_2.style.backgroundImage = `url('assets/${carColor}.png')`;
+    
     counter++;
 });
 barrier_3.addEventListener('animationiteration', () => {
     var random = Math.floor(Math.random() * 3);
     left = 25 + random * 200;
     barrier_3.style.left = left + "px";
+    
+    // Randomly assign red or blue car
+    var carColor = Math.random() < 0.5 ? 'redcar' : 'bluecar';
+    barrier_3.style.backgroundImage = `url('assets/${carColor}.png')`;
+    
     counter++
 })
 
