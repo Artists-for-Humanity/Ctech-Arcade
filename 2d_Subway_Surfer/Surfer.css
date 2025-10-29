@@ -51,6 +51,9 @@ body{
     animation: movement 4s infinite linear;
     overflow: hidden;
     z-index: 10;
+    /* Debug hitbox */
+    /* border: 2px solid cyan;
+    box-shadow: 0 0 8px rgba(0, 255, 255, 0.5); */
 }
 
 #barrier_2{
@@ -64,6 +67,9 @@ body{
     animation: movement 3s infinite linear;
     overflow: hidden;
     z-index: 10;
+    /* Debug hitbox */
+    /* border: 2px solid orange;
+    box-shadow: 0 0 8px rgba(255, 165, 0, 0.5); */
 }
 
 #barrier_3{
@@ -77,16 +83,25 @@ body{
     animation: movement 3s infinite linear;
     overflow: hidden;
     z-index: 10;
+    /* Debug hitbox */
+    /* border: 2px solid yellow;
+    box-shadow: 0 0 8px rgba(255, 255, 0, 0.5); */
 }
 
 #player{
     height: 150px;
     width: 150px;
-    background-color: green;
+    background-image: url('assets/standing.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
     position: absolute;
     top: 600px;
     left: 225px;
     z-index: 5;
+    /* Debug hitbox */
+    /* border: 2px solid lime;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.5); */
 }
 
 @keyframes movement{

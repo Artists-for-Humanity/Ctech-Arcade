@@ -1,3 +1,6 @@
+// Get player element reference
+var player = document.getElementById("player");
+
 function slide(){
     let width = 
     parseInt(window.getComputedStyle(player)
@@ -5,7 +8,11 @@ function slide(){
     let left = 
     parseInt(window.getComputedStyle(player)
     .getPropertyValue("left"));
-    if(width=150){
+    
+    // Change to ducking image
+    player.style.backgroundImage = "url('assets/ducking.png')";
+    
+    if(width==150){
         width -= 20;
         player.style.width = width + "px";
     }
@@ -18,6 +25,9 @@ function slide(){
     left -= 10;
     player.style.width = width + "px";
     player.style.left = left + "px";
+    
+    // Change back to standing image
+    player.style.backgroundImage = "url('assets/standing.png')";
     }, 1000);
 }
 
@@ -83,7 +93,7 @@ barrier_3.addEventListener('animationiteration', () => {
 const score_display = document.getElementById("score_display")
 let score = 0
 function updateScore(counter){
-    score =+ counter;
+    score += counter;
     score_display.textContent = score;
 }
 
