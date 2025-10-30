@@ -3,21 +3,27 @@
 // console.log(platform)
 
 const canvas = document.querySelector('canvas')
-
+const win = document.getElementById('win')
 const c = canvas.getContext('2d')
+const playerImg = new Image();
+playerImg.src = "./asset/player.png";
+const enemy1 = new Image();
+enemy1.src = "./asset/enemy1.png";
+const enemy2 = new Image();
+enemy2.src = "./asset/enemy2.png";
 const platformImg = new Image();
-platformImg.src = "Platform.png";
+platformImg.src = "./asset/platform.png"
 
 const gravity = 0.5;
-const score = 0;
+let score = 0;
 class Enemies{
-    constructor({x, spot}) {
+    constructor({x, spot, model}) {
         this.position = {
             x: x,
             y: 500
         }
-        this.width = 30;
-        this.height = 30;
+        this.width = 50;
+        this.height = 50;
         this.velocity = {
             x: 0,
             y: 1
@@ -28,10 +34,11 @@ class Enemies{
         this.status = true
 
         this.InitialX = this.position.x
+
+        this.model = model
     }
     draw() {
-        c.fillStyle = "red";
-        c.fillRect(this.position.x,this.position.y,this.width,this.height)
+        c.drawImage(this.model,this.position.x,this.position.y,this.width,this.height)
     }
 
     update() {
@@ -70,17 +77,16 @@ class Player{
             y:1,
         }
         
-        this.width = 30;
-        this.height = 30;
+        this.width = 50;
+        this.height = 50;
     }
 
     draw() {
-    c.fillStyle = "green";
-     c.fillRect(this.position.x, this.position.y, this.width, this.height)
+     c.drawImage(playerImg, this.position.x, this.position.y, this.width, this.height)
     }
 
-    update() {
-        this.draw()
+    update(colorUpdate) {
+        this.draw(colorUpdate)
         this.position.y += this.velocity.y
         this.position.x += this.velocity.x
 
@@ -97,14 +103,13 @@ class Platform{
             y: 600,
         }
         this.width = 200
-        this.height = 20
+        this.height = 200
 
     }
 
     
     draw() {
-        c.fillStyle = "blue";
-        c.fillRect(this.position.x, this.position.y, this.width, this.height)
+        c.drawImage(platformImg ,this.position.x, this.position.y, this.width, this.height)
     }
 }
 
@@ -121,22 +126,25 @@ class PlatformBase{
 
     
     draw() {
-        c.fillStyle = "blue";
-        c.fillRect(this.position.x, this.position.y, this.width, this.height)
+        
+        c.drawImage(platformImg,this.position.x, this.position.y, this.width, this.height)
     }
 }
 let platformBases = [new PlatformBase({ x: 520, y: 300, width: 100 }),
     new PlatformBase({ x: 640, y: 400, width: 100 }),
     new PlatformBase({ x: 750, y: 500, width: 100 }), 
-    new PlatformBase({ x: 810, y: 600, width: 100 }),
+    new PlatformBase({ x: 810, y: 200, width: 100 }),
     new PlatformBase({ x: 900, y: 300, width: 100 }),
 
 ]
-let enemies = [new Enemies({ x: 200, spot: 1 }),
-    new Enemies({ x: 450, spot: 3 }),
-    new Enemies({ x: 850, spot: 5 }),
-    new Enemies({ x: 1250, spot: 7 }),
-    new Enemies({ x: 1650, spot: 9 })]
+let enemies = [new Enemies({ x: 200, spot: 1, model: enemy1 }),
+    new Enemies({ x: 450, spot: 3, model: enemy2 }),
+    new Enemies({ x: 850, spot: 5, model: enemy2 }),
+    new Enemies({ x: 1250, spot: 7, model: enemy1 }),
+    new Enemies({ x: 1650, spot: 9, model: enemy2 }),
+    new Enemies({ x: 1250, spot: 10, model: enemy1 }),
+    new Enemies({ x: 1250, spot: 7, model: enemy1 }),
+    new Enemies({ x: 1250, spot: 7, model: enemy2 })]
     let player = new Player()
     let platforms = [new Platform({ x: 50, }),
     new Platform({ x: 250, }),
@@ -164,30 +172,33 @@ function init() {
     platformBases = [new PlatformBase({ x: 520, y: 300, width: 100 }),
     new PlatformBase({ x: 640, y: 400, width: 100 }),
     new PlatformBase({ x: 750, y: 500, width: 100 }), 
-    new PlatformBase({ x: 810, y: 600, width: 100 }),
+    new PlatformBase({ x: 810, y: 200, width: 100 }),
     new PlatformBase({ x: 900, y: 300, width: 100 }),]
 
-    enemies = [new Enemies({ x: 200, spot: 1 }),
-    new Enemies({ x: 450, spot: 3 }),
-    new Enemies({ x: 850, spot: 5 }),
-    new Enemies({ x: 1250, spot: 7 }),
-    new Enemies({ x: 1650, spot: 9 })]
+    enemies = [new Enemies({ x: 200, spot: 1, model: enemy1  }),
+    new Enemies({ x: 550, spot: 3, model: enemy2  }),
+    new Enemies({ x: 850, spot: 5, model: enemy2  }),
+    new Enemies({ x: 1250, spot: 7, model: enemy1  }),
+    new Enemies({ x: 1350, spot: 8, model: enemy2 }),
+    new Enemies({ x: 2050, spot: 11, model: enemy2  }),
+    new Enemies({ x: 2200, spot: 12, model: enemy1  }),
+    new Enemies({ x: 2350, spot: 13, model: enemy1  }),]
     player = new Player()
-    platforms = [new Platform({ x: 50, }),
-    new Platform({ x: 250, }),
-    new Platform({ x: 450 + 100 }),
-    new Platform({ x: 650, }),
-    new Platform({ x: 850, }),
-    new Platform({ x: 1050, }),
-    new Platform({ x: 1250, }),
-    new Platform({ x: 1450, }),
-    new Platform({ x: 1650, }),
-    new Platform({ x: 1850 + 200, }),
-    new Platform({ x: 200 * 10, }),
-    new Platform({ x: 200 * 11, }),
-    new Platform({ x: 200 * 12, }),
-    new Platform({ x: 200 * 13, }),
-    new Platform({ x: 200 * 14, })]
+    platforms = [new Platform({ x: 50, }), // 0
+    new Platform({ x: 250, }), // 1
+    new Platform({ x: 450 + 100 }), // 2
+    new Platform({ x: 650, }), // 3
+    new Platform({ x: 850, }), // 4
+    new Platform({ x: 1050, }), // 5
+    new Platform({ x: 1250, }), // 6
+    new Platform({ x: 1450, }), // 7
+    new Platform({ x: 1650, }), // 8
+    new Platform({ x: 1850 + 200, }), // 9
+    new Platform({ x: 200 * 10, }), // 10
+    new Platform({ x: 200 * 11, }), // 11
+    new Platform({ x: 200 * 12, }), // 12
+    new Platform({ x: 200 * 13, }), // 13
+    new Platform({ x: 200 * 14, })] // 14
  
 
      keys = {
@@ -276,8 +287,11 @@ if (keys.right.pressed && player.position.x < 1000) {
         // })
         // console.log("scrolloffset:", scrollOffset)
         // Win situation
-        if (scrollOffset > 2000) {
-            // console.log("You are win")
+        if (scrollOffset >= 1900 && score >= 3) {
+            console.log("You are win")
+            enemies.forEach(enemy => {enemy.status = false})
+            win.style.opacity = "1"
+            player.velocity = null
         }
         // Lose situation
         if (player.position.y > canvas.height || player.position.y < 0) {
@@ -295,10 +309,14 @@ function handleAttack() {
         const yCollision = (player.position.y + player.height) >= enemy.position.y && (player.position.y + player.height) <= enemy.position.y + enemy.height;
         const xCollision = Math.abs(player.position.x - enemy.position.x) < enemy.width; 
 
-        if (yCollision && xCollision && player.velocity.y > 0) {
+        if (yCollision && xCollision && player.velocity.y > 1) {
             enemy.status = false
             player.velocity.y -= 10
-        } else if (xCollision && Math.abs(player.position.y - enemy.position.y) <= enemy.height && enemies.status) {
+            score += 1
+            console.log(score)
+        } else if (xCollision && Math.abs(player.position.y - enemy.position.y) <= enemy.height) {
+            score -= score
+            console.log(score)
             init()
         }
     })
