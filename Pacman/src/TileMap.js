@@ -42,7 +42,7 @@ export default class TileMap{
                     } else if (tile===0) {
                         this.#drawDot(ctx, column, row, this.tileSize);
                     }
-                    ctx.strokeStyle ="yellow";
+                    ctx.strokeStyle = "yellow";
                     ctx.strokeRect(
                         column * this.tileSize, 
                         row * this.tileSize, 
@@ -80,6 +80,7 @@ export default class TileMap{
             for(let column = 0; column < this.map[row].length; column++){
                 let tile = this.map[row][column];
                 if(tile === 4){
+                    this.map[row][column] = 0;
                     return new Pacman(column * this.tileSize, row*this.tileSize, this.tileSize, velocity, this);
                 }
             }

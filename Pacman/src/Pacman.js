@@ -100,7 +100,7 @@ export default class Pacman {
             this.pacmanAnimatiomer = null;
             this.pacmanImageIndex = 1;
             return;
-        }   else if(this.currentMovingDirection!= null &&
+        }   else if(this.currentMovingDirection != null &&
             this.pacmanAnimationTimer == null
         ) {
             this.pacmanAniamtionTimer = this.pacmanAnimationTimerDefault;
