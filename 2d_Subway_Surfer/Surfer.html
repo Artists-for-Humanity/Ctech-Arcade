@@ -5,6 +5,58 @@
   <title>2D Subway Surfer</title>
   <link rel="stylesheet" href="Surfer.css">
   <link rel="stylesheet" href="../style.css">
+  <style>
+    /* Ensure the game container anchors absolutely positioned children */
+    #game { position: relative; overflow: hidden; }
+
+    /* Road background covering the playfield */
+    .road {
+      position: absolute;
+      inset: 0;
+      z-index: 0;                /* behind player and obstacles */
+      background: #2e2e2e;       /* asphalt */
+    }
+
+    /* Optional subtle lane tint blocks for readability */
+    .road__lane {
+      position: absolute;
+      top: 0; bottom: 0;
+      width: 150px;              /* lane width aligned to game logic */
+      background: rgba(255,255,255,0.03);
+      pointer-events: none;
+    }
+
+    /* Solid side edges */
+    .road__edge {
+      position: absolute;
+      top: 0; bottom: 0;
+      width: 4px;
+      background: #eaeaea;
+      pointer-events: none;
+    }
+
+    /* Center dashed dividers (animated) */
+    .road__divider {
+      position: absolute;
+      top: 0; bottom: 0;
+      width: 6px;
+      background: repeating-linear-gradient(
+        to bottom,
+        #f7f7f7 0 24px,
+        transparent 24px 44px
+      );
+      animation: dashScroll 0.6s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes dashScroll {
+      from { background-position-y: 0; }
+      to   { background-position-y: 44px; }
+    }
+
+    /* Make sure obstacles and player are above the road */
+    .obstacle_zone, #player { position: relative; z-index: 1; }
+  </style>
   <script src="../loading.js"></script>
       <link rel="icon" type="image/x-icon" href="../assets/arcade-machine.png">
 
@@ -25,9 +77,16 @@
             <div class="controls-text1"> left-arrow-key: move left</div>
             <div class="controls-text2"> right-arrow-key: move right</div>
             <div class="controls-text3"> down-arrow-key: slide down</div>
+                 <img src="../assets/control.png" alt="controls" srcset="">
+                <img src="../assets/arrows.png" alt="arrows" srcset="">
              <div class="info-header">background :</div>
              <div class="info-text">
 This game is heavily inspired by the hit mobile game “Subway Surfers” but it uses pixel art. In this game your supposed to dodge and duck under cars to avoid being reset. The goal of the game is to avoid cars for as long as you can.             </div>
+             </div>
+
+             <div class="info-header">creators :</div>
+             <div class="info-text">
+                Paige Barker & William Chen
              </div>
 
              <a href="../index.html" class="exit">EXIT</a>
@@ -39,6 +98,20 @@ This game is heavily inspired by the hit mobile game “Subway Surfers” but it
             <!-- <div class="left-side">
             </div> -->
             <div id="game">
+                <div class="road">
+                    <!-- Three visual lane strips, aligned to lane left positions: 25, 225, 425 -->
+                    <div class="road__lane" style="left:25px"></div>
+                    <div class="road__lane" style="left:225px"></div>
+                    <div class="road__lane" style="left:425px"></div>
+
+                    <!-- Solid side edges at x=25 and x=571 (575 - 4px edge) -->
+                    <div class="road__edge" style="left:25px"></div>
+                    <div class="road__edge" style="left:571px"></div>
+
+                    <!-- Dashed lane dividers at centers between lanes: 175 and 375 -->
+                    <div class="road__divider" style="left:175px"></div>
+                    <div class="road__divider" style="left:375px"></div>
+                </div>
                 <div class="obstacle_zone">
                     <div id="barrier_1"></div>
                     <div id="barrier_2"></div>

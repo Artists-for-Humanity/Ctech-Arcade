@@ -41,7 +41,7 @@ body{
 }
 
 #barrier_1{
-    height: 100px;
+    height: 300px;
     width: 150px;
     margin: 0;
     background-image: url('assets/redcar.png');
@@ -63,7 +63,7 @@ body{
     height: 300px;
     width: 150px;
     margin: 0;
-    background-image: url('assets/bluecar.png');
+    background-image: url('assets/redcar.png');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -79,10 +79,10 @@ body{
 }
 
 #barrier_3{
-    height: 400px;
+    height: 300px;
     width: 150px;
     margin: 0;
-    background-image: url('assets/redcar.png');
+    background-image: url('assets/bluecar.png');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
