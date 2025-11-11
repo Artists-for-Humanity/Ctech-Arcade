@@ -402,6 +402,17 @@ p {
     font-weight: bolder;
 }
 
+.pacman{
+	    background-image: url(./assets/pacman-preview.png);  
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    overflow: hidden;
+    color:white;
+    font-weight: bolder;
+}
+
+
 .jump {
     background-image: url(./assets/jump-preview.png);  
     background-size: cover;
@@ -414,24 +425,116 @@ p {
 
 .exit-creators{
     color: var(--tertiary-text-color);
-    background-color: transparent;
+    background-color: rgba(255, 0, 77, 0.15);
+    border: 1px solid rgba(255, 0, 77, 0.3);
     cursor: pointer;
     font-size: 35px;
     font-weight: bold;
     text-align: center;
-    text-decoration: none;;
+    text-decoration: none;
     padding: 10px 40px 10px 40px;
-    background-color:#ff004c30;
     border-radius: 6px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition:0.3s;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 8px rgba(255, 0, 77, 0.15);
+    position: relative;
 }
 
 .exit-creators:hover{
-    background-color: var(--alert-color);
+    background-color: rgba(255, 0, 77, 0.25);
+    border-color: rgba(255, 0, 77, 0.5);
+    box-shadow: 0 4px 15px rgba(255, 0, 77, 0.2);
     color: var(--tertiary-text-color);
-    transition:0.3s;
     scale: 0.9;
+}
+
+/* Visual distinctions for creators */
+.game.coder {
+    background-color: rgba(31, 199, 66, 0.15);
+    border: 1px solid rgba(31, 199, 66, 0.3);
+    position: relative;
+    box-shadow: 0 0 8px rgba(31, 199, 66, 0.15);
+}
+
+.game.coder::before {
+    content: "{ }";
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 16px;
+    color: rgba(31, 199, 66, 0.6);
+    font-weight: bold;
+}
+
+.game.coder:hover {
+    background-color: rgba(31, 199, 66, 0.25);
+    border-color: rgba(31, 199, 66, 0.5);
+    box-shadow: 0 4px 15px rgba(31, 199, 66, 0.2);
+    scale: 0.9;
+}
+
+.game.designer {
+    background-color: rgba(255, 107, 53, 0.15);
+    border: 1px solid rgba(255, 107, 53, 0.3);
+    position: relative;
+    box-shadow: 0 0 8px rgba(255, 107, 53, 0.15);
+}
+
+.game.designer::before {
+    content: "✦";
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 16px;
+    color: rgba(255, 107, 53, 0.6);
+}
+
+.game.designer:hover {
+    background-color: rgba(255, 107, 53, 0.25);
+    border-color: rgba(255, 107, 53, 0.5);
+    box-shadow: 0 4px 15px rgba(255, 107, 53, 0.2);
+    scale: 0.9;
+}
+
+/* Subtle animation for both types */
+.game.coder,
+.game.designer {
+    transition: all 0.3s ease;
+    filter: none;
+}
+
+.game.coder:hover,
+.game.designer:hover {
+    color: var(--primary-text-color);
+}
+
+/* Add a very subtle glow effect */
+@keyframes coderGlow {
+    0%, 100% { box-shadow: 0 0 8px rgba(31, 199, 66, 0.1); }
+    50% { box-shadow: 0 0 12px rgba(31, 199, 66, 0.2); }
+}
+
+@keyframes designerGlow {
+    0%, 100% { box-shadow: 0 0 8px rgba(255, 107, 53, 0.1); }
+    50% { box-shadow: 0 0 12px rgba(255, 107, 53, 0.2); }
+}
+
+.game.coder {
+    animation: coderGlow 4s ease-in-out infinite;
+}
+
+.game.designer {
+    animation: designerGlow 4s ease-in-out infinite;
+}
+
+/* Add subtle glow effect for exit button */
+@keyframes exitGlow {
+    0%, 100% { box-shadow: 0 0 8px rgba(255, 0, 77, 0.1); }
+    50% { box-shadow: 0 0 12px rgba(255, 0, 77, 0.2); }
+}
+
+.exit-creators {
+    animation: exitGlow 4s ease-in-out infinite;
 }
