@@ -383,7 +383,7 @@ p {
 }
 
 .mario {
-    background-image: url(./assets/mario-preview.png);  
+    background-image: url(./assets/sidescroll-preview.png);  
     background-size: cover;
     background-position: center;
     position: relative;

@@ -225,7 +225,7 @@ function renderDebug(playerR, barriers) {
   if (!DEBUG) return;
   ensureDebugCanvas();
   ctx.clearRect(0, 0, debugCanvas.width, debugCanvas.height);
-  drawRect(playerR, "lime");
+  // drawRect(playerR, "lime");
   barriers.forEach(({ rect, color }) => drawRect(rect, color));
 }
 
@@ -245,9 +245,9 @@ function frame() {
 
   // Debug draw
   renderDebug(pRect, [
-    { rect: b1Rect, color: "red" },
-    { rect: b2Rect, color: "orange" },
-    { rect: b3Rect, color: "blue" },
+    // { rect: b1Rect, color: "red" },
+    // { rect: b2Rect, color: "orange" },
+    // { rect: b3Rect, color: "blue" },
   ]);
 
   // Collision checks (AABB)
