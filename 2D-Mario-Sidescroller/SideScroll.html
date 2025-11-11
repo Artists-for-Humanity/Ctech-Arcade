@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<title>Side Scroll</title>
+	<link rel="stylesheet" href="SideScroll.css" />
+	<link rel="stylesheet" href="../style.css" />
+	<script src="../SideScroll.js"></script>
+	<link rel="icon" type="image/x-icon" href="../assets/arcade-machine.png">
+
+</head>
+
+<body>
+	<div class="main-container">
+		<div>
+			<h1>Welcome to C-Tech-Arcade l</h1>
+			<p>Choose a mini game below</p>
+		</div>
+		<div class="container">
+			<div class="game-title">Amy's Hammer</div>
+			<div class="game-container">
+				<div class="game-info">
+					<div>
+						<div class="info-header">controls :</div>
+						<div class="controls">
+							<img src="../assets/arrows.png" alt="arrows" srcset="" />
+							<img src="../assets/space.png" alt="" style="width:60px;height:auto;" />
+						</div>
+						<div class="info-header">background :</div>
+						<div class="info-text">
+							As usually, the Sonic team entered to a fight with Eggman and his robots in order to protect
+							the world from Eggman’s plan of conquering the world. One more time the Sonic team defeated
+							Eggman, but during the fight Amy lost her hammer, and now she’s searching around all Green
+							Hill to find her hammer.
+						</div>
+						<div class="info-header">creators :</div>
+						<div class="info-text">
+							Samantha Deossa Herrera & Triet Nguyen
+						</div>
+					</div>
+
+
+
+					<a href="../index.html" class="exit">EXIT</a>
+				</div>
+				<canvas class="gameCanvas" id="gameCanvas" width="1300" height="750"></canvas>
+			</div>
+		</div>
+
+		<!-- <p id="score">Score: 0</p> -->
+	</div>
+	<script src="SideScroll.js" type="module"></script>
+
+	<script>
+		// Initialize loading system for game page
+		initializeLoading(true);
+	</script>
+</body>
+
+</html>

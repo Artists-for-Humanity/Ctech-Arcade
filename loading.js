@@ -82,8 +82,8 @@ function initializeLoading(isGamePage = false) {
     
     // Add event listeners to navigation links
     document.addEventListener('DOMContentLoaded', function() {
-        // For game links on homepage
-        const gameLinks = document.querySelectorAll('.game');
+        // For game links on homepage - only add listeners to elements with href attributes
+        const gameLinks = document.querySelectorAll('.game[href]');
         gameLinks.forEach(link => {
             link.addEventListener('click', function(e) {
                 e.preventDefault();

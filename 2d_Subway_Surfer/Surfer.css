@@ -41,52 +41,76 @@ body{
 }
 
 #barrier_1{
-    height: 100px;
+    height: 300px;
     width: 150px;
     margin: 0;
-    background-color: red;
+    background-image: url('assets/redcar.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
     top: 1000px;
     left: 225px;
     position: absolute;
     animation: movement 4s infinite linear;
     overflow: hidden;
     z-index: 10;
+    /* Debug hitbox */
+    /* border: 2px solid cyan;
+    box-shadow: 0 0 8px rgba(0, 255, 255, 0.5); */
 }
 
 #barrier_2{
     height: 300px;
     width: 150px;
     margin: 0;
-    background-color: red;
+    background-image: url('assets/redcar.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
     top: 900px;
     left: 25px;
     position: absolute;
     animation: movement 3s infinite linear;
     overflow: hidden;
     z-index: 10;
+    /* Debug hitbox */
+    /* border: 2px solid orange;
+    box-shadow: 0 0 8px rgba(255, 165, 0, 0.5); */
 }
 
 #barrier_3{
-    height: 400px;
+    height: 300px;
     width: 150px;
     margin: 0;
-    background-color: red;
+    background-image: url('assets/bluecar.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
     top: 900px;
     left: 25px;
     position: absolute;
     animation: movement 3s infinite linear;
     overflow: hidden;
     z-index: 10;
+    /* Debug hitbox */
+    /* border: 2px solid yellow;
+    box-shadow: 0 0 8px rgba(255, 255, 0, 0.5); */
 }
 
 #player{
     height: 150px;
     width: 150px;
-    background-color: green;
+    background-image: url('assets/standing.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
     position: absolute;
     top: 600px;
     left: 225px;
     z-index: 5;
+    /* Debug hitbox */
+    /* border: 2px solid lime;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.5); */
 }
 
 @keyframes movement{
