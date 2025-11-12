@@ -476,20 +476,22 @@ p {
 }
 
 .game.designer {
-    background-color: rgba(255, 107, 53, 0.15);
-    border: 1px solid rgba(255, 107, 53, 0.3);
+     background-color: rgba(31, 199, 66, 0.15);
+    border: 1px solid rgba(31, 199, 66, 0.3);
     position: relative;
-    box-shadow: 0 0 8px rgba(255, 107, 53, 0.15);
+    box-shadow: 0 0 8px rgba(31, 199, 66, 0.15);
+	color:red;
+	 font-weight: bold;
 }
 
 .game.designer::before {
     content: "✦";
-    position: absolute;
+     position: absolute;
     top: 10px;
     right: 15px;
     font-size: 16px;
-    color: rgba(255, 107, 53, 0.6);
-}
+    color: rgba(31, 199, 66, 0.6);
+    font-weight: bold;
 
 .game.designer:hover {
     background-color: rgba(255, 107, 53, 0.25);
@@ -537,4 +539,9 @@ p {
 
 .exit-creators {
     animation: exitGlow 4s ease-in-out infinite;
+}
+}
+
+.game-info.pacman-info {
+justify-content: start;
 }
